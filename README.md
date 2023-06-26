@@ -26,9 +26,9 @@ more in https://platform.openai.com/docs/models
 
 ## Todo 🎏
 
-- [ ] Add loading indicator
-- [ ] Add error handling
-- [ ] Ask for key if not set
+- Add loading indicator ✅
+- Add error handling
+- Ask for key if not set
 
 ## Credits
 
