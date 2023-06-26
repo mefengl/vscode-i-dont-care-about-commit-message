@@ -2,6 +2,10 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.0.4] - 2023-06-27
+
+- Update README.md
+
 ## [0.0.3] - 2023-06-27
 
 - Add loading indicator

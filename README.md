@@ -10,19 +10,21 @@ Sometimes (if not always), I really don't care much about what my commit message
 ## Usage
 
 - In the extension settings, set the `OpenAI API Key` (also can set the `model`, default is `gpt-3.5-turbo`).
-
 - `Ctrl+Shift+P` -> Search for `AI Git Commit` or `AI Git Push` -> Press `Enter` -> Done!
+
+what's more:
+
+- Add shortcuts to the commands and use them like popping bubble wrap!
 
 ## Settings
 
-`OpenAI Model to be used`: OpenAI Model, default is `gpt-3.5-turbo`
+`OpenAI Model to be used`: Specify the OpenAI Model. The default is `gpt-3.5-turbo`.
 
-here are some advanced models:
+Consider these advanced models:
 
-- `gpt-3.5-turbo-16k`: great for large file changes, but adds cost if unnecessary files added and still under token limit.
-- `gpt-4`: better but expensive
-
-more in https://platform.openai.com/docs/models
+- `gpt-3.5-turbo-16k`: Ideal for large file changes, although it can increase cost if unnecessary files are added and are still within the token limit.
+- `gpt-4`: An upgrade but at a higher expense.
+For more options, visit OpenAI Models Documentation.
 
 ## Todo 🎏
 
