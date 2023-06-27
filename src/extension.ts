@@ -43,16 +43,25 @@ async function createCommitMessage(diff: string) {
 	return chatCompletion.data.choices[0].message?.content || '';
 }
 
+async function prepareGitOperation() {
+	const diff = await gitHelper.diff();
+	if (!diff) {
+		vscode.window.showInformationMessage('No changes to commit');
+		return;
+	}
+
+	const openaiKey = await getOpenAIKey();
+	if (!openaiKey) {
+		return;
+	}
+
+	return { diff, openaiKey };
+}
+
 export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('gitCommitAI', async () => {
-		const diff = await gitHelper.diff();
-		if (!diff) {
-			vscode.window.showInformationMessage('No changes to commit');
-			return;
-		}
-
-		const openaiKey = await getOpenAIKey();
-		if (!openaiKey) {
+		const preparation = await prepareGitOperation();
+		if (!preparation) {
 			return;
 		}
 
@@ -61,21 +70,15 @@ export function activate(context: vscode.ExtensionContext) {
 			title: "Processing Git Commit",
 			cancellable: false
 		}, async () => {
-			const commitMsg = await createCommitMessage(diff);
+			const commitMsg = await createCommitMessage(preparation.diff);
 			await gitHelper.add('.').commit(commitMsg);
 			vscode.window.showInformationMessage('Commit Successful!');
 		});
 	}));
 
 	context.subscriptions.push(vscode.commands.registerCommand('gitPushAI', async () => {
-		const diff = await gitHelper.diff();
-		if (!diff) {
-			vscode.window.showInformationMessage('No changes to commit');
-			return;
-		}
-
-		const openaiKey = await getOpenAIKey();
-		if (!openaiKey) {
+		const preparation = await prepareGitOperation();
+		if (!preparation) {
 			return;
 		}
 
@@ -84,7 +87,7 @@ export function activate(context: vscode.ExtensionContext) {
 			title: "Processing Git Push",
 			cancellable: false
 		}, async () => {
-			const commitMsg = await createCommitMessage(diff);
+			const commitMsg = await createCommitMessage(preparation.diff);
 			const currentBranch = await gitHelper.revparse(['--abbrev-ref', 'HEAD']);
 			await gitHelper.add('.').commit(commitMsg).push('origin', currentBranch);
 			vscode.window.showInformationMessage('Push Successful!');
