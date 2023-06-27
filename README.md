@@ -31,7 +31,7 @@ For more options, visit [OpenAI Models Documentation](https://platform.openai.co
 
 - Add loading indicator ✅
 - Add error handling
-- Ask for key if not set
+- Ask for key if not set ✅
 
 ## Credits
 
