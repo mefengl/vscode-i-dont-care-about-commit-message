@@ -6,28 +6,24 @@ let workspaceRoot = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
 const gitHelper = simpleGit(workspaceRoot);
 
 async function getOpenAIKey(): Promise<string> {
-	let openaiKey = vscode.workspace.getConfiguration('gitCommitAI').get('openaiApiKey') as string | undefined;
+	let openaiKey = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('openaiApiKey') as string | undefined;
 	if (!openaiKey) {
 		openaiKey = await vscode.window.showInputBox({ prompt: 'Enter your OpenAI API Key' });
 		if (!openaiKey) {
 			vscode.window.showErrorMessage('No OpenAI API Key provided.');
 			return '';
 		}
-		await vscode.workspace.getConfiguration('gitCommitAI').update('openaiApiKey', openaiKey, vscode.ConfigurationTarget.Global);
+		await vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').update('openaiApiKey', openaiKey, vscode.ConfigurationTarget.Global);
 	}
-
 	return openaiKey;
 }
 
 async function createCommitMessage(diff: string) {
 	const openaiKey = await getOpenAIKey();
-
 	if (!openaiKey) {
 		return '';
 	}
-
-	const model = vscode.workspace.getConfiguration('gitCommitAI').get('model') as string;
-
+	const model = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('model') as string;
 	const configuration = new Configuration({ apiKey: openaiKey });
 	const openai = new OpenAIApi(configuration);
 
@@ -44,7 +40,6 @@ async function createCommitMessage(diff: string) {
 					content: `git diff:\n${diff}`
 				}],
 		});
-
 	return chatCompletion.data.choices[0].message?.content || '';
 }
 

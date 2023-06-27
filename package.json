@@ -30,12 +30,12 @@
     ],
     "configuration": {
       "properties": {
-        "gitCommitAI.openaiApiKey": {
+        "iDontCareAboutCommitMessage.openaiApiKey": {
           "type": "string",
           "default": "",
           "description": "OpenAI API Key"
         },
-        "gitCommitAI.model": {
+        "iDontCareAboutCommitMessage.model": {
           "type": "string",
           "default": "gpt-3.5-turbo",
           "description": "OpenAI Model to be used"
