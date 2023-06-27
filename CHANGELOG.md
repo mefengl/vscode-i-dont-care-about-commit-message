@@ -2,6 +2,10 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.1.1] - 2023-06-27
+
+- Fix: new files that are not tracked by git will use another way to prompt instead of diff
+
 ## [0.1.0] - 2023-06-27
 
 - Add edge case handling: no changes now will exit with a message
