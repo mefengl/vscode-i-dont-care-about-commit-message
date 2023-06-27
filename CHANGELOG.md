@@ -2,6 +2,10 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.0.6] - 2023-06-27
+
+- Update package.json: add categories and keywords
+
 ## [0.0.5] - 2023-06-27
 
 - Add feature: ask for key if not set

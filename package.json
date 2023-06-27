@@ -13,7 +13,37 @@
     "vscode": "^1.79.0"
   },
   "categories": [
-    "Other"
+    "Machine Learning",
+    "SCM Providers",
+    "Education",
+    "Snippets"
+  ],
+  "keywords": [
+    "ai",
+    "autocomplete",
+    "c",
+    "c#",
+    "c++",
+    "co-pilot",
+    "codex",
+    "commit",
+    "documentation",
+    "git",
+    "go",
+    "golang",
+    "gpt-3.5-turbo",
+    "gpt-3.5",
+    "gpt-3",
+    "gpt-4",
+    "java",
+    "javascript",
+    "kotlin",
+    "openai",
+    "php",
+    "pilot",
+    "python",
+    "ruby",
+    "typescript"
   ],
   "activationEvents": [],
   "main": "./dist/extension.js",
