@@ -45,31 +45,44 @@ async function createCommitMessage(diff: string) {
 
 export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('gitCommitAI', async () => {
+		const diff = await gitHelper.diff();
+		const openaiKey = await getOpenAIKey();
+
+		if (!openaiKey) {
+			return;
+		}
+
 		await vscode.window.withProgress({
 			location: vscode.ProgressLocation.Notification,
 			title: "Processing Git Commit",
 			cancellable: false
 		}, async () => {
-			const diff = await gitHelper.diff();
 			const commitMsg = await createCommitMessage(diff);
 			await gitHelper.add('.').commit(commitMsg);
+			vscode.window.showInformationMessage('Commit Successful!');
 		});
-		vscode.window.showInformationMessage('Commit Successful!');
 	}));
 
 	context.subscriptions.push(vscode.commands.registerCommand('gitPushAI', async () => {
+		const diff = await gitHelper.diff();
+		const openaiKey = await getOpenAIKey();
+
+		if (!openaiKey) {
+			return;
+		}
+
 		await vscode.window.withProgress({
 			location: vscode.ProgressLocation.Notification,
 			title: "Processing Git Push",
 			cancellable: false
 		}, async () => {
-			const diff = await gitHelper.diff();
 			const commitMsg = await createCommitMessage(diff);
 			const currentBranch = await gitHelper.revparse(['--abbrev-ref', 'HEAD']);
 			await gitHelper.add('.').commit(commitMsg).push('origin', currentBranch);
+			vscode.window.showInformationMessage('Push Successful!');
 		});
-		vscode.window.showInformationMessage('Push Successful!');
 	}));
 }
+
 
 export function deactivate() { }
