@@ -46,8 +46,12 @@ async function createCommitMessage(diff: string) {
 export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('gitCommitAI', async () => {
 		const diff = await gitHelper.diff();
-		const openaiKey = await getOpenAIKey();
+		if (!diff) {
+			vscode.window.showInformationMessage('No changes to commit');
+			return;
+		}
 
+		const openaiKey = await getOpenAIKey();
 		if (!openaiKey) {
 			return;
 		}
@@ -65,8 +69,12 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(vscode.commands.registerCommand('gitPushAI', async () => {
 		const diff = await gitHelper.diff();
-		const openaiKey = await getOpenAIKey();
+		if (!diff) {
+			vscode.window.showInformationMessage('No changes to commit');
+			return;
+		}
 
+		const openaiKey = await getOpenAIKey();
 		if (!openaiKey) {
 			return;
 		}
@@ -83,6 +91,5 @@ export function activate(context: vscode.ExtensionContext) {
 		});
 	}));
 }
-
 
 export function deactivate() { }
