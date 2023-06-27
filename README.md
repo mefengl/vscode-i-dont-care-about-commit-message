@@ -1,6 +1,6 @@
 # I Don't Care About Commit Message
 
-Sometimes (if not always), I really don't care much about what my commit message says. Maybe AI can write better than me (sadly, this happens a lot).
+Yet another AI git commit plugin, but without the need for manual confirmation.
 
 ## Features ✨
 
@@ -9,8 +9,12 @@ Sometimes (if not always), I really don't care much about what my commit message
 
 ## Usage
 
-- In the extension settings, set the `OpenAI API Key` (also can set the `model`, default is `gpt-3.5-turbo`).
-- `Ctrl+Shift+P` -> Search for `AI Git Commit` or `AI Git Push` -> Press `Enter` -> Done!
+- `Ctrl+Shift+P`
+- Search for `AI Git Commit` or `AI Git Push`
+- Press `Enter`
+- Done!
+
+> will ask for OpenAI API Key if not set
 
 What's more:
 
@@ -18,7 +22,9 @@ What's more:
 
 ## Settings
 
-`OpenAI Model to be used`: Specify the OpenAI Model. The default is `gpt-3.5-turbo`.
+### Model
+
+Specify the OpenAI Model. The default is `gpt-3.5-turbo`.
 
 Consider these advanced models:
 
@@ -27,11 +33,9 @@ Consider these advanced models:
 
 For more options, visit [OpenAI Models Documentation](https://platform.openai.com/docs/models).
 
-## Todo 🎏
+### OpenAI API Key
 
-- Add loading indicator ✅
-- Add error handling
-- Ask for key if not set ✅
+Specify the OpenAI API Key.
 
 ## Credits
 

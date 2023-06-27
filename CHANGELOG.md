@@ -2,6 +2,11 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.1.0] - 2023-06-27
+
+- Add edge case handling: no changes now will exit with a message
+- Update README.md
+
 ## [0.0.6] - 2023-06-27
 
 - Update package.json: add categories and keywords
