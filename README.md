@@ -37,6 +37,11 @@ For more options, visit [OpenAI Models Documentation](https://platform.openai.co
 
 Specify the OpenAI API Key.
 
+## Todos 🎏
+
+- Add timeout error
+- Add base tests
+
 ## Credits
 
 - `I don't care about cookies`: for the funny way of naming
