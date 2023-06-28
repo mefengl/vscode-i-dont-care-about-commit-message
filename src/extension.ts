@@ -7,12 +7,31 @@ import { OpenAIApi, Configuration } from 'openai';
 let workspaceRoot = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
 const gitHelper = simpleGit(workspaceRoot);
 
+class VSCodeError extends Error {
+	static info = (message: string) => new VSCodeError(message, 'info');
+	static warning = (message: string) => new VSCodeError(message, 'warning');
+	static error = (message: string) => new VSCodeError(message, 'error');
+
+	constructor(public message: string, public severity: 'error' | 'warning' | 'info') {
+		super(message);
+	}
+
+	static handle(error: VSCodeError) {
+		const severityMapping = {
+			'error': vscode.window.showErrorMessage,
+			'warning': vscode.window.showWarningMessage,
+			'info': vscode.window.showInformationMessage
+		};
+		severityMapping[error.severity](error.message);
+	}
+}
+
 async function getOpenAIKey(): Promise<string> {
 	let openaiKey = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('openaiApiKey') as string | undefined;
 	if (!openaiKey) {
 		openaiKey = await vscode.window.showInputBox({ prompt: 'Enter your OpenAI API Key' });
 		if (!openaiKey) {
-			vscode.window.showErrorMessage('No OpenAI API Key provided.');
+			VSCodeError.handle(VSCodeError.error('No OpenAI API Key provided.'));
 			return '';
 		}
 		await vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').update('openaiApiKey', openaiKey, vscode.ConfigurationTarget.Global);
@@ -48,7 +67,7 @@ async function createCommitMessage(gitInfo: string) {
 async function prepareGitOperation() {
 	try {
 		if (!workspaceRoot) {
-			throw new Error('No workspace opened.');
+			throw VSCodeError.info('No workspace opened.');
 		}
 
 		let diff = await gitHelper.diff();
@@ -57,7 +76,7 @@ async function prepareGitOperation() {
 		if (!diff) {
 			const gitStatusShort = await gitHelper.status(['--short']);
 			if (!gitStatusShort.files.length) {
-				throw new Error('No changes to commit');
+				throw VSCodeError.info('No changes to commit');
 			}
 
 			for (let file of gitStatusShort.files) {
@@ -72,13 +91,13 @@ async function prepareGitOperation() {
 
 		const openaiKey = await getOpenAIKey();
 		if (!openaiKey) {
-			throw new Error('No OpenAI API Key provided.');
+			throw VSCodeError.error('No OpenAI API Key provided.');
 		}
 
 		return { gitInfo, openaiKey };
 	} catch (error) {
-		if (error instanceof Error) {
-			vscode.window.showErrorMessage(error.message);
+		if (error instanceof VSCodeError) {
+			VSCodeError.handle(error);
 			return null;
 		}
 	}
