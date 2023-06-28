@@ -96,7 +96,6 @@ export function activate(context: vscode.ExtensionContext) {
 			title: "Processing Git Commit",
 			cancellable: false
 		}, async () => {
-			vscode.window.showInformationMessage(preparation.gitInfo);
 			const commitMsg = await createCommitMessage(preparation.gitInfo);
 			await gitHelper.add('.').commit(commitMsg);
 			vscode.window.showInformationMessage('Commit Successful!');

@@ -2,6 +2,10 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.1.2] - 2023-06-28
+
+- Fix: remove unnecessary message used by development
+
 ## [0.1.1] - 2023-06-27
 
 - Fix: new files that are not tracked by git will use another way to prompt instead of diff
