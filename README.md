@@ -41,6 +41,7 @@ Specify the OpenAI API Key.
 
 - Add timeout error
 - Add base tests
+- Add option for simple `Conventional Commits` format
 
 ## Credits
 
