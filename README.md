@@ -39,7 +39,7 @@ Specify the OpenAI API Key.
 
 ## Todos 🎏
 
-- Update prompt format for untracked files
+- Update prompt format for untracked files ✅
 - Add option for simple `Conventional Commits` format
 - Add base tests
 - Refine error handling
