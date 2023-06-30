@@ -2,6 +2,10 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.1.4] - 2023-06-30
+
+- Fix: fixed "staged files will have empty diff" issue
+
 ## [0.1.3] - 2023-06-28
 
 - Update error handling: create VSCodeError class to handle issues

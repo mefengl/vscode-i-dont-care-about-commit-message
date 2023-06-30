@@ -70,7 +70,7 @@ async function prepareGitOperation() {
 			throw VSCodeError.info('No workspace opened.');
 		}
 
-		let diff = await gitHelper.diff();
+		const diff = await gitHelper.add('.').diff(['--staged']);
 		let gitInfo = '';
 
 		if (!diff) {
@@ -116,7 +116,7 @@ export function activate(context: vscode.ExtensionContext) {
 			cancellable: false
 		}, async () => {
 			const commitMsg = await createCommitMessage(preparation.gitInfo);
-			await gitHelper.add('.').commit(commitMsg);
+			await gitHelper.commit(commitMsg);
 			vscode.window.showInformationMessage('Commit Successful!');
 		});
 	}));
@@ -134,7 +134,7 @@ export function activate(context: vscode.ExtensionContext) {
 		}, async () => {
 			const commitMsg = await createCommitMessage(preparation.gitInfo);
 			const currentBranch = await gitHelper.revparse(['--abbrev-ref', 'HEAD']);
-			await gitHelper.add('.').commit(commitMsg).push('origin', currentBranch);
+			await gitHelper.commit(commitMsg).push('origin', currentBranch);
 			vscode.window.showInformationMessage('Push Successful!');
 		});
 	}));
