@@ -38,7 +38,7 @@ Whether to use conventional commit, default is `false`.
 
 looks like this:
 
-```txt
+```plaintext
 <type>[optional scope]: <description>
 
 [optional body]
