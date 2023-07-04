@@ -61,10 +61,12 @@ Specify the OpenAI API Key.
 
 ## Credits
 
-- `I don't care about cookies`: for the funny way of naming
-- [Simple Git](https://github.com/steveukx/git-js) @steveukx
-- [Convensional Commits](https://www.conventionalcommits.org/en/v1.0.0/): for the conventional commit format
+- `I don't care about cookies`: For the funny way of naming
+- [Simple Git](https://github.com/steveukx/git-js) @steveukx: It would be much harder without this
+- [Convensional Commits](https://www.conventionalcommits.org/en/v1.0.0/): For the conventional commit format
   > The `Conventional Commits` format used in this tool is based on the [Conventional Commits specification (v1.0.0)](https://www.conventionalcommits.org/en/v1.0.0/), which is licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
+- [aicommits](https://github.com/Nutlope/aicommits) @Nutlope: The cli ai commit tool I used before I created my own
+- [OpenAI API](https://platform.openai.com/docs/api-reference/chat): It makes this extension possible
 
 ## License
 

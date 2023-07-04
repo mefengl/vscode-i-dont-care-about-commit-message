@@ -2,6 +2,10 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.2.1] - 2023-07-04
+
+- Update credits in README
+
 ## [0.2.0] - 2023-07-04
 
 - Added option to use Conventional Commits format, along with a description in the README
