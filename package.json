@@ -69,6 +69,11 @@
           "type": "string",
           "default": "gpt-3.5-turbo",
           "description": "OpenAI Model to be used"
+        },
+        "iDontCareAboutCommitMessage.useConventionalCommit": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to use conventional commit"
         }
       }
     }
