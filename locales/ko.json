@@ -1,0 +1,11 @@
+{
+  "enter-your-openai-api-key": "OpenAI API 키를 입력하세요",
+  "no-openai-api-key-provided": "OpenAI API 키가 제공되지 않았습니다.",
+  "no-workspace-opened": "열린 작업 공간이 없습니다.",
+  "no-changes-to-commit": "커밋할 변경사항이 없습니다",
+  "no-openai-api-key-provided-0": "OpenAI API 키가 제공되지 않았습니다.",
+  "processing-git-commit": "Git 커밋 처리 중",
+  "commit-successful": "커밋 성공!",
+  "processing-git-push": "Git 푸시 처리 중",
+  "push-successful": "푸시 성공!"
+}

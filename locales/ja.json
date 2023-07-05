@@ -1,0 +1,11 @@
+{
+  "enter-your-openai-api-key": "OpenAI APIキーを入力してください",
+  "no-openai-api-key-provided": "OpenAI APIキーが提供されていません。",
+  "no-workspace-opened": "ワークスペースが開かれていません。",
+  "no-changes-to-commit": "コミットする変更はありません",
+  "no-openai-api-key-provided-0": "OpenAI APIキーが提供されていません。",
+  "processing-git-commit": "Gitコミットを処理中",
+  "commit-successful": "コミット成功！",
+  "processing-git-push": "Gitプッシュを処理中",
+  "push-successful": "プッシュ成功！"
+}

@@ -1,0 +1,11 @@
+{
+  "enter-your-openai-api-key": "輸入您的OpenAI API金鑰",
+  "no-openai-api-key-provided": "未提供OpenAI API金鑰。",
+  "no-workspace-opened": "沒有開啟的工作空間。",
+  "no-changes-to-commit": "沒有要提交的更改",
+  "no-openai-api-key-provided-0": "未提供OpenAI API金鑰。",
+  "processing-git-commit": "正在處理Git提交",
+  "commit-successful": "提交成功！",
+  "processing-git-push": "正在處理Git推送",
+  "push-successful": "推送成功！"
+}

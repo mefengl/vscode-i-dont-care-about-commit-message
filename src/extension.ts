@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as vscode from 'vscode';
 import { simpleGit } from 'simple-git';
 import { OpenAIApi, Configuration } from 'openai';
+import { i18n } from './i18n';
 
 let workspaceRoot = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
 const gitHelper = simpleGit(workspaceRoot);
@@ -10,9 +11,9 @@ const gitHelper = simpleGit(workspaceRoot);
 async function getOpenAIKey(): Promise<string> {
 	let openaiKey = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('openaiApiKey') as string | undefined;
 	if (!openaiKey) {
-		openaiKey = await vscode.window.showInputBox({ prompt: 'Enter your OpenAI API Key' });
+		openaiKey = await vscode.window.showInputBox({ prompt: i18n.t('enter-your-openai-api-key') });
 		if (!openaiKey) {
-			vscode.window.showErrorMessage('No OpenAI API Key provided.');
+			vscode.window.showErrorMessage(i18n.t('no-openai-api-key-provided'));
 			return '';
 		}
 		await vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').update('openaiApiKey', openaiKey, vscode.ConfigurationTarget.Global);
@@ -144,7 +145,7 @@ async function createCommitMessage(gitInfo: string) {
 
 async function prepareGitOperation() {
 	if (!workspaceRoot) {
-		vscode.window.showInformationMessage('No workspace opened.');
+		vscode.window.showInformationMessage(i18n.t('no-workspace-opened'));
 		return null;
 	}
 
@@ -154,7 +155,7 @@ async function prepareGitOperation() {
 	if (!diff) {
 		const gitStatusShort = await gitHelper.status(['--short']);
 		if (!gitStatusShort.files.length) {
-			vscode.window.showInformationMessage('No changes to commit');
+			vscode.window.showInformationMessage(i18n.t('no-changes-to-commit'));
 			return null;
 		}
 
@@ -170,7 +171,7 @@ async function prepareGitOperation() {
 
 	const openaiKey = await getOpenAIKey();
 	if (!openaiKey) {
-		vscode.window.showErrorMessage('No OpenAI API Key provided.');
+		vscode.window.showErrorMessage(i18n.t('no-openai-api-key-provided-0'));
 		return null;
 	}
 
@@ -186,12 +187,12 @@ export function activate(context: vscode.ExtensionContext) {
 
 		await vscode.window.withProgress({
 			location: vscode.ProgressLocation.Notification,
-			title: "Processing Git Commit",
+			title: i18n.t('processing-git-commit'),
 			cancellable: false
 		}, async () => {
 			const commitMsg = await createCommitMessage(preparation.gitInfo);
 			await gitHelper.commit(commitMsg);
-			vscode.window.showInformationMessage('Commit Successful!');
+			vscode.window.showInformationMessage(i18n.t('commit-successful'));
 		});
 	}));
 
@@ -203,13 +204,13 @@ export function activate(context: vscode.ExtensionContext) {
 
 		await vscode.window.withProgress({
 			location: vscode.ProgressLocation.Notification,
-			title: "Processing Git Push",
+			title: i18n.t('processing-git-push'),
 			cancellable: false
 		}, async () => {
 			const commitMsg = await createCommitMessage(preparation.gitInfo);
 			const currentBranch = await gitHelper.revparse(['--abbrev-ref', 'HEAD']);
 			await gitHelper.commit(commitMsg).push('origin', currentBranch);
-			vscode.window.showInformationMessage('Push Successful!');
+			vscode.window.showInformationMessage(i18n.t('push-successful'));
 		});
 	}));
 }

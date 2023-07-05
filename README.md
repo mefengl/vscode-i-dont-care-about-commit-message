@@ -56,7 +56,7 @@ Specify the OpenAI API Key.
 
 - Update prompt format for untracked files ✅
 - Add option for simple `Conventional Commits` format ✅
-- i18n
+- i18n ✅
 - Add base tests
 - Refine error handling
 

@@ -1,0 +1,11 @@
+{
+  "enter-your-openai-api-key": "OpenAI API Anahtarınızı girin",
+  "no-openai-api-key-provided": "OpenAI API Anahtarı sağlanmadı.",
+  "no-workspace-opened": "Hiçbir çalışma alanı açılmadı.",
+  "no-changes-to-commit": "Commit edilecek değişiklik yok",
+  "no-openai-api-key-provided-0": "OpenAI API Anahtarı sağlanmadı.",
+  "processing-git-commit": "Git Commit İşleniyor",
+  "commit-successful": "Commit Başarılı!",
+  "processing-git-push": "Git Push İşleniyor",
+  "push-successful": "Push Başarılı!"
+}

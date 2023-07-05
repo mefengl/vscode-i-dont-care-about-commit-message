@@ -1,0 +1,11 @@
+{
+  "enter-your-openai-api-key": "Insira sua chave API do OpenAI",
+  "no-openai-api-key-provided": "Nenhuma chave API do OpenAI foi fornecida.",
+  "no-workspace-opened": "Nenhum espaço de trabalho aberto.",
+  "no-changes-to-commit": "Nenhuma alteração para commit",
+  "no-openai-api-key-provided-0": "Nenhuma chave API do OpenAI foi fornecida.",
+  "processing-git-commit": "Processando commit do Git",
+  "commit-successful": "Commit bem-sucedido!",
+  "processing-git-push": "Processando push do Git",
+  "push-successful": "Push bem-sucedido!"
+}

@@ -1,0 +1,11 @@
+{
+  "enter-your-openai-api-key": "Zadejte svůj klíč API OpenAI",
+  "no-openai-api-key-provided": "Nebyl poskytnut žádný klíč API OpenAI.",
+  "no-workspace-opened": "Není otevřen žádný pracovní prostor.",
+  "no-changes-to-commit": "Žádné změny k odeslání",
+  "no-openai-api-key-provided-0": "Nebyl poskytnut žádný klíč API OpenAI.",
+  "processing-git-commit": "Zpracování Git commitu",
+  "commit-successful": "Commit úspěšný!",
+  "processing-git-push": "Zpracování Git push",
+  "push-successful": "Push úspěšný!"
+}

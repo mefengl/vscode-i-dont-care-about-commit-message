@@ -1,0 +1,11 @@
+{
+  "enter-your-openai-api-key": "Adja meg az OpenAI API kulcsát",
+  "no-openai-api-key-provided": "Nem lett OpenAI API kulcs megadva.",
+  "no-workspace-opened": "Nincs munkaterület megnyitva.",
+  "no-changes-to-commit": "Nincsenek elkötelezendő változások",
+  "no-openai-api-key-provided-0": "Nem lett OpenAI API kulcs megadva.",
+  "processing-git-commit": "Git commit feldolgozása",
+  "commit-successful": "Commit sikeres!",
+  "processing-git-push": "Git push feldolgozása",
+  "push-successful": "Push sikeres!"
+}

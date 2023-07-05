@@ -1,0 +1,11 @@
+{
+  "enter-your-openai-api-key": "Введите ваш ключ API OpenAI",
+  "no-openai-api-key-provided": "Ключ API OpenAI не предоставлен.",
+  "no-workspace-opened": "Рабочее пространство не открыто.",
+  "no-changes-to-commit": "Нет изменений для коммита",
+  "no-openai-api-key-provided-0": "Ключ API OpenAI не предоставлен.",
+  "processing-git-commit": "Обработка Git коммита",
+  "commit-successful": "Коммит успешно выполнен!",
+  "processing-git-push": "Обработка Git push",
+  "push-successful": "Push успешно выполнен!"
+}

@@ -2,6 +2,13 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.3.0] - 2023-07-06
+
+### Added
+
+- Internationalization support with language translation
+  - Added language files for multiple languages
+
 ## [0.2.1] - 2023-07-04
 
 - Update credits in README
@@ -10,7 +17,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Added option to use Conventional Commits format, along with a description in the README
 - Added reference and credit for Conventional Commits in README
-- Updated the prompt process for the OpenAI API Key 
+- Updated the prompt process for the OpenAI API Key
 - Completed the "Add option for simple `Conventional Commits` format" task in the Todos
 
 ## [0.1.4] - 2023-06-30
