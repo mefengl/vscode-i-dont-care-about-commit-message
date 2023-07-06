@@ -52,6 +52,21 @@ looks like this:
 
 Specify the OpenAI API Key.
 
+## Language Support
+
+This extension interface supports multiple languages:
+
+| Language            | Code   | Language            | Code   |
+| ------------------- | ------ | ------------------- | ------ |
+| English (US)        | en     | Italiano            | it     |
+| 简体中文             | zh-cn  | Español             | es     |
+| 繁體中文             | zh-tw  | 日本語               | ja     |
+| Français            | fr     | 한국어               | ko     |
+| Deutsch             | de     | Русский             | ru     |
+| Português (Brasil)  | pt-br  | Türkçe              | tr     |
+| Polski              | pl     | Čeština             | cs     |
+| Magyar              | hu     |                     |        |
+
 ## Todos 🎏
 
 - Update prompt format for untracked files ✅
