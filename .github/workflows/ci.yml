@@ -33,11 +33,7 @@ jobs:
     - name: Run lint
       run: npm run lint
 
-    - name: Setup xvfb
-      run: |
-        sudo apt-get install -y xvfb
-        export DISPLAY=:99
-        Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-
-    - name: Run Tests
-      run: npm run test
+    - name: Run headless test
+      uses: coactions/setup-xvfb@v1
+      with:
+        run: npm test
