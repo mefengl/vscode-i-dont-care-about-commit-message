@@ -2,6 +2,7 @@ import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as proxyquire from 'proxyquire';
 import * as sinon from 'sinon';
+import { i18n } from '../../i18n';
 
 const getOpenAIKeyStub = sinon.stub().returns(Promise.resolve('fake_api_key'));
 
@@ -37,18 +38,14 @@ suite('Extension Test Suite', () => {
 	});
 
 	test('prepareGitOperation Test - No workspace opened', async () => {
-		// Arrange
 		const showInfoStub = sinon.stub(vscode.window, 'showInformationMessage');
 		sinon.stub(vscode.workspace, 'workspaceFolders').value(undefined);
-	
-		// Act
+
 		const result = await extension.prepareGitOperation();
-	
-		// Assert
-		assert(showInfoStub.called);
+
+		assert(showInfoStub.calledWith(i18n.t('no-workspace-opened')));
 		assert.strictEqual(result, null);
-	
-		// Cleanup
+
 		showInfoStub.restore();
 	});
 
