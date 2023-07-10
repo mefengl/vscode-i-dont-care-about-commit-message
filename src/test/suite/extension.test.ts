@@ -1,8 +1,10 @@
-import * as assert from 'assert';
+import * as chai from 'chai';
 import * as vscode from 'vscode';
 import * as proxyquire from 'proxyquire';
 import * as sinon from 'sinon';
 import { i18n } from '../../i18n';
+
+const { expect } = chai;
 
 const getOpenAIKeyStub = sinon.stub().returns(Promise.resolve('fake_api_key'));
 
@@ -16,7 +18,7 @@ suite('Extension Test Suite', () => {
 		inputStub.returns(Promise.resolve('fake_api_key'));
 
 		const key = await extension.getOpenAIKey();
-		assert.strictEqual(key, 'fake_api_key');
+		expect(key).to.equal('fake_api_key');
 
 		inputStub.restore();
 	});
@@ -30,11 +32,7 @@ suite('Extension Test Suite', () => {
 
 		const message = extension.createConventionalCommit(options);
 
-		assert.strictEqual(
-			message,
-			'feat(login): add login feature',
-			'Commit message does not match expected format.'
-		);
+		expect(message).to.equal('feat(login): add login feature');
 	});
 
 	test('prepareGitOperation Test - No workspace opened', async () => {
@@ -43,10 +41,9 @@ suite('Extension Test Suite', () => {
 
 		const result = await extension.prepareGitOperation();
 
-		assert(showInfoStub.calledWith(i18n.t('no-workspace-opened')));
-		assert.strictEqual(result, null);
+		expect(showInfoStub.calledWith(i18n.t('no-workspace-opened'))).to.be.true;
+		expect(result).to.be.null;
 
 		showInfoStub.restore();
 	});
-
 });
