@@ -1,15 +1,39 @@
 import * as assert from 'assert';
-
-// You can import and use all API from the 'vscode' module
-// as well as import your extension to test it
 import * as vscode from 'vscode';
-// import * as myExtension from '../../extension';
+import * as proxyquire from 'proxyquire';
+import * as sinon from 'sinon';
+
+const getOpenAIKeyStub = sinon.stub().returns(Promise.resolve('fake_api_key'));
+
+const extension = proxyquire('../../extension', {
+	'getOpenAIKey': getOpenAIKeyStub,
+});
 
 suite('Extension Test Suite', () => {
-	vscode.window.showInformationMessage('Start all tests.');
+	test('getOpenAIKey Test', async () => {
+		const inputStub = sinon.stub(vscode.window, 'showInputBox');
+		inputStub.returns(Promise.resolve('fake_api_key'));
 
-	test('Sample test', () => {
-		assert.strictEqual(-1, [1, 2, 3].indexOf(5));
-		assert.strictEqual(-1, [1, 2, 3].indexOf(0));
+		const key = await extension.getOpenAIKey();
+		assert.strictEqual(key, 'fake_api_key');
+
+		inputStub.restore();
 	});
+
+	test('createConventionalCommit Test', () => {
+		const options = {
+			type: 'feat',
+			scope: 'login',
+			description: 'add login feature',
+		};
+
+		const message = extension.createConventionalCommit(options);
+
+		assert.strictEqual(
+			message,
+			'feat(login): add login feature',
+			'Commit message does not match expected format.'
+		);
+	});
+
 });

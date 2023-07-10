@@ -8,7 +8,7 @@ import { i18n } from './i18n';
 let workspaceRoot = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
 const gitHelper = simpleGit(workspaceRoot);
 
-async function getOpenAIKey(): Promise<string> {
+export async function getOpenAIKey(): Promise<string> {
 	let openaiKey = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('openaiApiKey') as string | undefined;
 	if (!openaiKey) {
 		openaiKey = await vscode.window.showInputBox({ prompt: i18n.t('enter-your-openai-api-key') });
@@ -30,7 +30,7 @@ type CreateConventionalCommitOptions = {
 	isBreakingChange?: boolean;
 };
 
-const createConventionalCommit = ({
+export const createConventionalCommit = ({
 	type,
 	scope,
 	description,
@@ -143,7 +143,7 @@ async function createCommitMessage(gitInfo: string) {
 	}
 }
 
-async function prepareGitOperation() {
+export async function prepareGitOperation() {
 	if (!workspaceRoot) {
 		vscode.window.showInformationMessage(i18n.t('no-workspace-opened'));
 		return null;
