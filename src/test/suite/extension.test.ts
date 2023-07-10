@@ -36,4 +36,20 @@ suite('Extension Test Suite', () => {
 		);
 	});
 
+	test('prepareGitOperation Test - No workspace opened', async () => {
+		// Arrange
+		const showInfoStub = sinon.stub(vscode.window, 'showInformationMessage');
+		sinon.stub(vscode.workspace, 'workspaceFolders').value(undefined);
+	
+		// Act
+		const result = await extension.prepareGitOperation();
+	
+		// Assert
+		assert(showInfoStub.called);
+		assert.strictEqual(result, null);
+	
+		// Cleanup
+		showInfoStub.restore();
+	});
+
 });
