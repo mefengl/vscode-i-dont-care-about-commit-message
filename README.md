@@ -72,7 +72,8 @@ This extension interface supports multiple languages:
 - Update prompt format for untracked files ✅
 - Add option for simple `Conventional Commits` format ✅
 - i18n ✅
-- Add base tests
+- Add base tests ✅
+- Add base CI/CD
 - Ignore lock files if there are other file changes
 - Refine error handling
 

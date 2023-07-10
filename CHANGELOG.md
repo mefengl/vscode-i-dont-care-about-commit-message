@@ -2,6 +2,10 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.3.2] - 2023-07-10
+
+- Add: base tests
+
 ## [0.3.1] - 2023-07-07
 
 - Update: Also i18n the language support table
