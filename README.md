@@ -73,7 +73,7 @@ This extension interface supports multiple languages:
 - Add option for simple `Conventional Commits` format ✅
 - i18n ✅
 - Add base tests ✅
-- Add base CI/CD
+- Add base CI ✅
 - Ignore lock files if there are other file changes
 - Refine error handling
 
