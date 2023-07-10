@@ -13,5 +13,8 @@
     "i18n-ally.localesPaths": [
         "locales"
     ],
-    "i18n-ally.keystyle": "flat"
+    "i18n-ally.keystyle": "flat",
+    "github-actions.workflows.pinned.workflows": [
+        ".github/workflows/ci.yml"
+    ]
 }
