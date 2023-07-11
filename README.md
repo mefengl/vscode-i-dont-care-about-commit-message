@@ -74,7 +74,7 @@ This extension interface supports multiple languages:
 - i18n ✅
 - Add base tests ✅
 - Add base CI ✅
-- Extract pure logic out to use Vitest
+- Extract pure logic out to use Vitest ✅
 - Add a command that can add something to the prompt
 - Ignore lock files if there are other file changes
 - Refine error handling
