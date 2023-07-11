@@ -4,11 +4,12 @@ import * as vscode from 'vscode';
 import { simpleGit } from 'simple-git';
 import { OpenAIApi, Configuration } from 'openai';
 import { i18n } from './i18n';
+import { processChatCompletion } from './pure';
 
 let workspaceRoot = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
 const gitHelper = simpleGit(workspaceRoot);
 
-export async function getOpenAIKey(): Promise<string> {
+async function getOpenAIKey(): Promise<string> {
 	let openaiKey = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('openaiApiKey') as string | undefined;
 	if (!openaiKey) {
 		openaiKey = await vscode.window.showInputBox({ prompt: i18n.t('enter-your-openai-api-key') });
@@ -21,42 +22,7 @@ export async function getOpenAIKey(): Promise<string> {
 	return openaiKey;
 }
 
-type CreateConventionalCommitOptions = {
-	type: string;
-	scope?: string;
-	description: string;
-	body?: string;
-	footer?: string;
-	isBreakingChange?: boolean;
-};
-
-export const createConventionalCommit = ({
-	type,
-	scope,
-	description,
-	body,
-	footer,
-	isBreakingChange,
-}: CreateConventionalCommitOptions) => {
-	let commitMessage = `${type}${scope ? `(${scope})` : ""}${isBreakingChange ? "!" : ""
-		}: ${description}`;
-
-	if (body) {
-		commitMessage += `\n\n${body}`;
-	}
-
-	if (isBreakingChange) {
-		commitMessage += `\n\nBREAKING CHANGE: ${description}`;
-	}
-
-	if (footer) {
-		commitMessage += `\n\n${footer}`;
-	}
-
-	return commitMessage;
-};
-
-export async function getChatCompletion(gitInfo: string) {
+async function getChatCompletion(gitInfo: string) {
 	const openaiKey = await getOpenAIKey();
 	if (!openaiKey) {
 		return null;
@@ -121,22 +87,7 @@ export async function getChatCompletion(gitInfo: string) {
 	);
 }
 
-export function processChatCompletion(chatCompletion: any, useConventionalCommit: boolean) {
-	if (!chatCompletion) { return ''; }
-
-	if (useConventionalCommit) {
-		const content = chatCompletion.data.choices[0].message?.function_call?.arguments;
-		if (!content) {
-			return '';
-		}
-		const contentJSON = JSON.parse(content) as CreateConventionalCommitOptions;
-		return createConventionalCommit(contentJSON);
-	} else {
-		return chatCompletion.data.choices[0].message?.content || '';
-	}
-}
-
-export async function prepareGitOperation() {
+async function prepareGitOperation() {
 	if (!workspaceRoot) {
 		vscode.window.showInformationMessage(i18n.t('no-workspace-opened'));
 		return null;
