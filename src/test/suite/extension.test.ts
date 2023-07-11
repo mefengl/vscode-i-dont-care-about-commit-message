@@ -1,7 +1,7 @@
-import * as chai from 'chai';
 import * as vscode from 'vscode';
-import * as proxyquire from 'proxyquire';
 import * as sinon from 'sinon';
+import * as proxyquire from 'proxyquire';
+import * as chai from 'chai';
 import { i18n } from '../../i18n';
 
 const { expect } = chai;
@@ -25,14 +25,14 @@ suite('Extension Test Suite', () => {
 
 	test('createConventionalCommit Test', () => {
 		const options = {
-			type: 'feat',
-			scope: 'login',
-			description: 'add login feature',
+			type: 'type',
+			scope: 'scope',
+			description: 'description',
 		};
 
 		const message = extension.createConventionalCommit(options);
 
-		expect(message).to.equal('feat(login): add login feature');
+		expect(message).to.equal('type(scope): description');
 	});
 
 	test('prepareGitOperation Test - No workspace opened', async () => {
@@ -45,5 +45,44 @@ suite('Extension Test Suite', () => {
 		expect(result).to.be.null;
 
 		showInfoStub.restore();
+	});
+
+	test('processChatCompletion Test - Conventional Commit', () => {
+		const chatCompletion = {
+			data: {
+				choices: [{
+					message: {
+						function_call: {
+							arguments: JSON.stringify({
+								type: 'type',
+								scope: 'scope',
+								description: 'description',
+								body: 'body',
+								footer: 'footer',
+								isBreakingChange: false,
+							})
+						}
+					}
+				}]
+			}
+		};
+		const commitMsg = extension.processChatCompletion(chatCompletion, true);
+
+		expect(commitMsg).to.equal('type(scope): description\n\nbody\n\nfooter');
+	});
+
+	test('processChatCompletion Test - Non-Conventional Commit', () => {
+		const chatCompletion = {
+			data: {
+				choices: [{
+					message: {
+						content: 'Commit message'
+					}
+				}]
+			}
+		};
+		const commitMsg = extension.processChatCompletion(chatCompletion, false);
+
+		expect(commitMsg).to.equal('Commit message');
 	});
 });

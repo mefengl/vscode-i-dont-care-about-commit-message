@@ -56,69 +56,75 @@ export const createConventionalCommit = ({
 	return commitMessage;
 };
 
-async function createCommitMessage(gitInfo: string) {
+export async function getChatCompletion(gitInfo: string) {
 	const openaiKey = await getOpenAIKey();
 	if (!openaiKey) {
-		return '';
+		return null;
 	}
 	const model = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('model') as string;
 	const configuration = new Configuration({ apiKey: openaiKey });
 	const openai = new OpenAIApi(configuration);
 
 	const useConventionalCommit = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('useConventionalCommit') as boolean;
-	if (useConventionalCommit) {
-		const chatCompletion = await openai.createChatCompletion(
-			{
-				model: model,
-				messages: [
-					{
-						role: "system",
-						content: "only answer with single line of commit msg itself"
-					},
-					{
-						role: "user",
-						content: gitInfo
-					}
-				],
-				functions: [
-					{
-						name: "createConventionalCommit",
-						description: "Create a conventional commit message.",
-						parameters: {
-							type: "object",
-							properties: {
-								type: {
-									type: "string",
-									description: "The type of the commit."
-								},
-								scope: {
-									type: "string",
-									description: "The scope of the commit."
-								},
-								description: {
-									type: "string",
-									description: "The description of the commit."
-								},
-								body: {
-									type: "string",
-									description: "The body of the commit."
-								},
-								footer: {
-									type: "string",
-									description: "The footer of the commit."
-								},
-								isBreakingChange: {
-									type: "boolean",
-									description: "If the commit introduces a breaking change."
-								}
-							},
-							required: ["type", "description", "body", "footer", "isBreakingChange"]
-						}
-					}
-				],
-				function_call: { name: "createConventionalCommit" }
-			});
 
+	return await openai.createChatCompletion(
+		{
+			model: model,
+			messages: [
+				{
+					role: "system",
+					content: "only answer with single line of commit msg itself"
+				},
+				{
+					role: "user",
+					content: gitInfo
+				}
+			],
+			functions: useConventionalCommit ? [
+				{
+					name: "createConventionalCommit",
+					description: "Create a conventional commit message.",
+					parameters: {
+						type: "object",
+						properties: {
+							type: {
+								type: "string",
+								description: "The type of the commit."
+							},
+							scope: {
+								type: "string",
+								description: "The scope of the commit."
+							},
+							description: {
+								type: "string",
+								description: "The description of the commit."
+							},
+							body: {
+								type: "string",
+								description: "The body of the commit."
+							},
+							footer: {
+								type: "string",
+								description: "The footer of the commit."
+							},
+							isBreakingChange: {
+								type: "boolean",
+								description: "If the commit introduces a breaking change."
+							}
+						},
+						required: ["type", "description", "body", "footer", "isBreakingChange"]
+					}
+				}
+			] : undefined,
+			function_call: useConventionalCommit ? { name: "createConventionalCommit" } : undefined
+		}
+	);
+}
+
+export function processChatCompletion(chatCompletion: any, useConventionalCommit: boolean) {
+	if (!chatCompletion) { return ''; }
+
+	if (useConventionalCommit) {
 		const content = chatCompletion.data.choices[0].message?.function_call?.arguments;
 		if (!content) {
 			return '';
@@ -126,19 +132,6 @@ async function createCommitMessage(gitInfo: string) {
 		const contentJSON = JSON.parse(content) as CreateConventionalCommitOptions;
 		return createConventionalCommit(contentJSON);
 	} else {
-		const chatCompletion = await openai.createChatCompletion(
-			{
-				model: model,
-				messages: [
-					{
-						role: "system",
-						content: "only answer with single line of commit msg itself"
-					},
-					{
-						role: 'user',
-						content: gitInfo
-					}],
-			});
 		return chatCompletion.data.choices[0].message?.content || '';
 	}
 }
@@ -190,7 +183,9 @@ export function activate(context: vscode.ExtensionContext) {
 			title: i18n.t('processing-git-commit'),
 			cancellable: false
 		}, async () => {
-			const commitMsg = await createCommitMessage(preparation.gitInfo);
+			const chatCompletion = await getChatCompletion(preparation.gitInfo);
+			const useConventionalCommit = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('useConventionalCommit') as boolean;
+			const commitMsg = processChatCompletion(chatCompletion, useConventionalCommit);
 			await gitHelper.commit(commitMsg);
 			vscode.window.showInformationMessage(i18n.t('commit-successful'));
 		});
@@ -207,7 +202,9 @@ export function activate(context: vscode.ExtensionContext) {
 			title: i18n.t('processing-git-push'),
 			cancellable: false
 		}, async () => {
-			const commitMsg = await createCommitMessage(preparation.gitInfo);
+			const chatCompletion = await getChatCompletion(preparation.gitInfo);
+			const useConventionalCommit = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('useConventionalCommit') as boolean;
+			const commitMsg = processChatCompletion(chatCompletion, useConventionalCommit);
 			const currentBranch = await gitHelper.revparse(['--abbrev-ref', 'HEAD']);
 			await gitHelper.commit(commitMsg).push('origin', currentBranch);
 			vscode.window.showInformationMessage(i18n.t('push-successful'));
