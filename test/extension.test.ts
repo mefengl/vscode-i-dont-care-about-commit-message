@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { createConventionalCommit, processChatCompletion } from '../src/pure';
+import { checkLockfiles, createConventionalCommit, getGitInfo, processChatCompletion } from '../src/pure';
 
 afterEach(() => {
 	vi.restoreAllMocks();
@@ -55,5 +55,22 @@ describe('Extension Test Suite', () => {
 		const commitMsg = processChatCompletion(chatCompletion, false);
 
 		expect(commitMsg).toBe('Commit message');
+	});
+
+	it('checkLockfiles Test', () => {
+		const diffFiles = ['src/code.js', 'package-lock.json', 'README.md', 'Gemfile.lock'];
+		const lockFiles = checkLockfiles(diffFiles);
+
+		expect(lockFiles).toEqual(['package-lock.json', 'Gemfile.lock']);
+	});
+
+	it('getGitInfo Test', () => {
+		const input = {
+			diff: 'diff data',
+			changedLockfiles: ['package-lock.json', 'Gemfile.lock']
+		};
+		const gitInfo = getGitInfo(input);
+
+		expect(gitInfo).toBe('git diff:\n"""\ndiff data\n"""\nChanged lockfiles:package-lock.json,Gemfile.lock');
 	});
 });
