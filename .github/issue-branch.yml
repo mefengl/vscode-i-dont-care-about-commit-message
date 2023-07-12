@@ -1,0 +1,5 @@
+---
+autoCloseIssue: true
+openDraftPR: true
+prSkipCI: true
+silent: true
