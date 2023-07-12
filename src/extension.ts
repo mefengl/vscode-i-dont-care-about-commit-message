@@ -57,7 +57,7 @@ async function getChatCompletion(gitInfo: string) {
 							},
 							scope: {
 								type: "string",
-								description: "The scope of the commit."
+								description: "The scope or scopes of the commit, separated by a slash."
 							},
 							description: {
 								type: "string",
@@ -76,7 +76,7 @@ async function getChatCompletion(gitInfo: string) {
 								description: "If the commit introduces a breaking change."
 							}
 						},
-						required: ["type", "description", "body", "footer", "isBreakingChange"]
+						required: ["type", "description"]
 					}
 				}
 			] : undefined,
