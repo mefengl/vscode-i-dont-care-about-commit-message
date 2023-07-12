@@ -82,7 +82,7 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsup ./src/extension.ts --external vscode --minify",
     "watch": "tsup ./src/extension.ts --external vscode --watch --sourcemap",
-    "test": "vitest",
+    "test": "vitest run",
     "lint": "eslint src --ext ts",
     "lint:fix": "eslint src --ext ts --fix"
   },

@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
-import { simpleGit } from 'simple-git';
+import { StatusResult, simpleGit } from 'simple-git';
 import { OpenAIApi, Configuration } from 'openai';
 import { i18n } from './i18n';
 import { processChatCompletion } from './pure';
@@ -87,20 +87,20 @@ async function getChatCompletion(gitInfo: string) {
 	);
 }
 
-async function prepareGitOperation() {
+async function prepareGitOperation({ workspaceRoot, diff, gitStatusShort }: {
+	workspaceRoot?: string;
+	diff: string;
+	gitStatusShort: StatusResult;
+}) {
 	if (!workspaceRoot) {
-		vscode.window.showInformationMessage(i18n.t('no-workspace-opened'));
-		return null;
+		return { error: i18n.t('no-workspace-opened'), gitInfo: '' };
 	}
 
-	const diff = await gitHelper.add('.').diff(['--staged']);
 	let gitInfo = '';
 
 	if (!diff) {
-		const gitStatusShort = await gitHelper.status(['--short']);
 		if (!gitStatusShort.files.length) {
-			vscode.window.showInformationMessage(i18n.t('no-changes-to-commit'));
-			return null;
+			return { error: i18n.t('no-changes-to-commit'), gitInfo: '' };
 		}
 
 		for (let file of gitStatusShort.files) {
@@ -113,11 +113,17 @@ async function prepareGitOperation() {
 		gitInfo = `git diff:\n${diff}`;
 	}
 
-	return gitInfo;
+	return { error: '', gitInfo };
 }
 
 async function processGitOperation(title: string, operation: (commitMsg: string) => Promise<void>) {
-	const gitInfo = await prepareGitOperation();
+
+	const diff = await gitHelper.add('.').diff(['--staged']);
+	const gitStatusShort = await gitHelper.status(['--short']);
+	const gitInfo = await prepareGitOperation({ workspaceRoot, diff, gitStatusShort }).then(result => result.error
+		? (vscode.window.showInformationMessage(result.error), null)
+		: result.gitInfo);
+
 	if (!gitInfo) {
 		return;
 	}
