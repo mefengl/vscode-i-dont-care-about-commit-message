@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import { simpleGit } from 'simple-git';
 import { OpenAIApi, Configuration } from 'openai';
 import { i18n } from './i18n';
-import { processChatCompletion } from './pure';
+import { checkLockfiles, getGitInfo, processChatCompletion } from './pure';
 
 let workspaceRoot = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
 const gitHelper = simpleGit(workspaceRoot);
@@ -28,7 +28,6 @@ async function getChatCompletion(gitInfo: string) {
 	const model = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('model') as string;
 	const configuration = new Configuration({ apiKey: openaiKey });
 	const openai = new OpenAIApi(configuration);
-
 	const useConventionalCommit = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('useConventionalCommit') as boolean;
 
 	return await openai.createChatCompletion(
@@ -90,12 +89,15 @@ async function processGitOperation(title: string, operation: (commitMsg: string)
 		vscode.window.showInformationMessage(i18n.t('no-workspace-opened'));
 		return;
 	}
-	const diff = await gitHelper.add('.').diff(['--staged']);
-	if (!diff) {
+	await gitHelper.add('.');
+	const diffFiles = (await gitHelper.diff(['--name-only', '--staged'])).split('\n');
+	const changedLockfiles = checkLockfiles(diffFiles);
+	const diff = await gitHelper.diff(['--staged', ...changedLockfiles.map(lockfile => `:!${lockfile}`)]);
+	const gitInfo = getGitInfo({ diff, changedLockfiles });
+	if (!gitInfo) {
 		vscode.window.showInformationMessage(i18n.t('no-changes-to-commit'));
 		return;
 	}
-	const gitInfo = `git diff:\n${diff}`;
 
 	await vscode.window.withProgress({
 		location: vscode.ProgressLocation.Notification,

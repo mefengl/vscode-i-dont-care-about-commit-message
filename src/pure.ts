@@ -35,7 +35,6 @@ export const createConventionalCommit = ({
 
 export function processChatCompletion(chatCompletion: any, useConventionalCommit: boolean) {
   if (!chatCompletion) { return ''; }
-
   if (useConventionalCommit) {
     const content = chatCompletion.data.choices[0].message?.function_call?.arguments;
     if (!content) {
@@ -47,3 +46,20 @@ export function processChatCompletion(chatCompletion: any, useConventionalCommit
     return chatCompletion.data.choices[0].message?.content || '';
   }
 }
+
+export const checkLockfiles = (diffFiles: string[]) =>
+  ["package-lock.json", "yarn.lock", "Gemfile.lock", "composer.lock", "pnpm-lock.yaml", "go.sum", "cargo.lock", "poetry.lock", "mix.lock"]
+    .filter(lockfile => diffFiles.includes(lockfile));
+
+export const getGitInfo = ({ diff, changedLockfiles }: {
+  diff: string; changedLockfiles: string[]
+}) => {
+  let gitInfo = "";
+  if (diff) {
+    gitInfo += `git diff:\n"""\n${diff}\n"""\n`;
+  }
+  if (changedLockfiles?.length) {
+    gitInfo += `Changed lockfiles:${changedLockfiles.join(',')}`;
+  }
+  return gitInfo;
+};
