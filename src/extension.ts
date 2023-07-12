@@ -113,49 +113,37 @@ async function prepareGitOperation() {
 		gitInfo = `git diff:\n${diff}`;
 	}
 
-	const openaiKey = await getOpenAIKey();
-	if (!openaiKey) {
-		vscode.window.showErrorMessage(i18n.t('no-openai-api-key-provided-0'));
-		return null;
+	return gitInfo;
+}
+
+async function processGitOperation(title: string, operation: (commitMsg: string) => Promise<void>) {
+	const gitInfo = await prepareGitOperation();
+	if (!gitInfo) {
+		return;
 	}
 
-	return { gitInfo, openaiKey };
+	await vscode.window.withProgress({
+		location: vscode.ProgressLocation.Notification,
+		title: title,
+		cancellable: false
+	}, async () => {
+		const chatCompletion = await getChatCompletion(gitInfo);
+		const useConventionalCommit = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('useConventionalCommit') as boolean;
+		const commitMsg = processChatCompletion(chatCompletion, useConventionalCommit);
+		await operation(commitMsg);
+	});
 }
 
 export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('gitCommitAI', async () => {
-		const preparation = await prepareGitOperation();
-		if (!preparation) {
-			return;
-		}
-
-		await vscode.window.withProgress({
-			location: vscode.ProgressLocation.Notification,
-			title: i18n.t('processing-git-commit'),
-			cancellable: false
-		}, async () => {
-			const chatCompletion = await getChatCompletion(preparation.gitInfo);
-			const useConventionalCommit = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('useConventionalCommit') as boolean;
-			const commitMsg = processChatCompletion(chatCompletion, useConventionalCommit);
+		await processGitOperation(i18n.t('processing-git-commit'), async commitMsg => {
 			await gitHelper.commit(commitMsg);
 			vscode.window.showInformationMessage(i18n.t('commit-successful'));
 		});
 	}));
 
 	context.subscriptions.push(vscode.commands.registerCommand('gitPushAI', async () => {
-		const preparation = await prepareGitOperation();
-		if (!preparation) {
-			return;
-		}
-
-		await vscode.window.withProgress({
-			location: vscode.ProgressLocation.Notification,
-			title: i18n.t('processing-git-push'),
-			cancellable: false
-		}, async () => {
-			const chatCompletion = await getChatCompletion(preparation.gitInfo);
-			const useConventionalCommit = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('useConventionalCommit') as boolean;
-			const commitMsg = processChatCompletion(chatCompletion, useConventionalCommit);
+		await processGitOperation(i18n.t('processing-git-push'), async commitMsg => {
 			const currentBranch = await gitHelper.revparse(['--abbrev-ref', 'HEAD']);
 			await gitHelper.commit(commitMsg).push('origin', currentBranch);
 			vscode.window.showInformationMessage(i18n.t('push-successful'));
