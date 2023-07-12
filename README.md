@@ -69,7 +69,9 @@ This extension interface supports multiple languages:
 
 ## Todos 🎏
 
-🏖️
+- Update logic for conventional commit message
+- Toggle the conventional commit message format
+- Custom the enum of conventional commit format's type and scope
 
 ## Credits
 
