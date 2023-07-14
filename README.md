@@ -73,6 +73,17 @@ This extension interface supports multiple languages:
 - Toggle the conventional commit message format
 - Custom the enum of conventional commit format's type and scope
 
+## Development
+
+For development, follow these steps:
+
+1. Clone the repository and navigate into it.
+Run `npm install` to install all the necessary dependencies.
+2. Run `npm run watch` to start the development server.
+3. Press `F5` to start the plugin in a new VSCode window.
+
+For testing, run `npm run test`.
+
 ## Credits
 
 - `I don't care about cookies`: For the funny way of naming
