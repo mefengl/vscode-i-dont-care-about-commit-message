@@ -2,6 +2,10 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.4.1] - 2023-07-15
+
+- Fix: resolve git's compatibility issue with pathspec magic
+
 ## [0.4.0] - 2023-07-12
 
 - Update: Simplify the diff of lock files
