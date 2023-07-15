@@ -92,8 +92,15 @@ async function processGitOperation(title: string, operation: (commitMsg: string)
 	await gitHelper.add('.');
 	const diffFiles = (await gitHelper.diff(['--name-only', '--staged'])).split('\n');
 	const changedLockfiles = checkLockfiles(diffFiles);
-	const diff = await gitHelper.diff(['--staged', ...changedLockfiles.map(lockfile => `:!${lockfile}`)]);
-	const gitInfo = getGitInfo({ diff, changedLockfiles });
+	let diff = '';
+	let gitInfo = '';
+	try {
+		diff = await gitHelper.diff(['--staged', ...changedLockfiles.map(lockfile => `:!${lockfile}`)]);
+		gitInfo = getGitInfo({ diff, changedLockfiles });
+	} catch (e) {
+		diff = await gitHelper.diff(['--staged']);
+		gitInfo = getGitInfo({ diff, changedLockfiles: [] });
+	}
 	if (!gitInfo) {
 		vscode.window.showInformationMessage(i18n.t('no-changes-to-commit'));
 		return;
