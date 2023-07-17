@@ -70,6 +70,7 @@ This extension interface supports multiple languages:
 ## Todos 🎏
 
 - Add more context to the prompt when the change itself is too small ✅
+- Add a much easier way to regret the commit and redo it with human guidance
 
 ## Development
 
