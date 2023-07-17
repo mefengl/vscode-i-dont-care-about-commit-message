@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import { simpleGit } from 'simple-git';
 import { OpenAIApi, Configuration } from 'openai';
 import { i18n } from './i18n';
-import { checkLockfiles, getGitInfo, processChatCompletion } from './pure';
+import { checkLockfiles, getChangedLinesNumber, getGitInfo, processChatCompletion } from './pure';
 
 let workspaceRoot = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
 const gitHelper = simpleGit(workspaceRoot);
@@ -92,15 +92,19 @@ async function processGitOperation(title: string, operation: (commitMsg: string)
 	await gitHelper.add('.');
 	const diffFiles = (await gitHelper.diff(['--name-only', '--staged'])).split('\n');
 	const changedLockfiles = checkLockfiles(diffFiles);
-	let diff = '';
+	const stat = await gitHelper.diff(['--shortstat', '--staged']);
+
 	let gitInfo = '';
+	const shouldMoreContext = getChangedLinesNumber(stat) > 10;
+	const diffOptions = ['--staged', ...(shouldMoreContext ? ['-U10'] : [])];
 	try {
-		diff = await gitHelper.diff(['--staged', ...changedLockfiles.map(lockfile => `:!${lockfile}`)]);
+		const diff = await gitHelper.diff([...diffOptions, ...changedLockfiles.map(lockfile => `:!${lockfile}`)]);
 		gitInfo = getGitInfo({ diff, changedLockfiles });
 	} catch (e) {
-		diff = await gitHelper.diff(['--staged']);
+		const diff = await gitHelper.diff(diffOptions);
 		gitInfo = getGitInfo({ diff, changedLockfiles: [] });
 	}
+
 	if (!gitInfo) {
 		vscode.window.showInformationMessage(i18n.t('no-changes-to-commit'));
 		return;
