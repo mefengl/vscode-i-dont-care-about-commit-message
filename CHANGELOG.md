@@ -2,6 +2,10 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.4.2] - 2023-07-17
+
+- Add: add more context to the prompt message when changes are small
+
 ## [0.4.1] - 2023-07-15
 
 - Fix: resolve git's compatibility issue with pathspec magic
