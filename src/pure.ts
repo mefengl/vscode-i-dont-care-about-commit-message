@@ -7,6 +7,13 @@ type CreateConventionalCommitOptions = {
   isBreakingChange?: boolean;
 };
 
+export const getChangedLinesNumber = (stat: string) => {
+  const changedLines = stat.match(/(\d+) (?:file|files) changed(?:, (\d+) insertions?\(\+\))?(?:, (\d+) deletions?\(-\))?/);
+  if (!changedLines) { return 0; }
+  const [, changedFiles = '0', insertions = '0', deletions = '0'] = changedLines;
+  return parseInt(changedFiles) + parseInt(insertions) + parseInt(deletions);
+};
+
 export const createConventionalCommit = ({
   type,
   scope,
