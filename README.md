@@ -1,6 +1,6 @@
 # I Don't Care About Commit Message
 
-Yet another AI git commit plugin, but without the need for manual confirmation.
+A VS Code extension aiming to keep commit keystrokes to a bare minimum via LLM.
 
 ## Features ✨
 
