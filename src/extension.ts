@@ -84,12 +84,14 @@ async function getChatCompletion(gitInfo: string) {
 	);
 }
 
-async function processGitOperation(title: string, operation: (commitMsg: string) => Promise<void>) {
+async function processGitOperation(title: string, operation: (commitMsg: string) => Promise<void>, addAll: boolean = true) {
 	if (!workspaceRoot) {
 		vscode.window.showInformationMessage(i18n.t('no-workspace-opened'));
 		return;
 	}
-	await gitHelper.add('.');
+	if (addAll) {
+		await gitHelper.add('.');
+	}
 	const diffFiles = (await gitHelper.diff(['--name-only', '--staged'])).split('\n');
 	const changedLockfiles = checkLockfiles(diffFiles);
 	const stat = await gitHelper.diff(['--shortstat', '--staged']);
@@ -123,6 +125,7 @@ async function processGitOperation(title: string, operation: (commitMsg: string)
 }
 
 export function activate(context: vscode.ExtensionContext) {
+
 	context.subscriptions.push(vscode.commands.registerCommand('gitCommitAI', async () => {
 		await processGitOperation(i18n.t('processing-git-commit'), async commitMsg => {
 			await gitHelper.commit(commitMsg);
@@ -137,6 +140,22 @@ export function activate(context: vscode.ExtensionContext) {
 			vscode.window.showInformationMessage(i18n.t('push-successful'));
 		});
 	}));
+
+	context.subscriptions.push(vscode.commands.registerCommand('gitCommitStagedAI', async () => {
+		await processGitOperation(i18n.t('processing-git-commit'), async commitMsg => {
+			await gitHelper.commit(commitMsg);
+			vscode.window.showInformationMessage(i18n.t('commit-successful'));
+		}, false);
+	}));
+
+	context.subscriptions.push(vscode.commands.registerCommand('gitPushStagedAI', async () => {
+		await processGitOperation(i18n.t('processing-git-push'), async commitMsg => {
+			const currentBranch = await gitHelper.revparse(['--abbrev-ref', 'HEAD']);
+			await gitHelper.commit(commitMsg).push('origin', currentBranch);
+			vscode.window.showInformationMessage(i18n.t('push-successful'));
+		}, false);
+	}));
+
 }
 
 export function deactivate() { }
