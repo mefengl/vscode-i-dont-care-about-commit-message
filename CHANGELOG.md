@@ -2,6 +2,10 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.5.0] - 2023-07-19
+
+- Add: support manual staged files
+
 ## [0.4.5] - 2023-07-19
 
 - Chore: add gif to README

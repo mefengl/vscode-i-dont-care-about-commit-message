@@ -56,6 +56,14 @@
       {
         "command": "gitPushAI",
         "title": "AI Git Push"
+      },
+      {
+        "command": "gitCommitStagedAI",
+        "title": "AI Git Commit Staged"
+      },
+      {
+        "command": "gitPushStagedAI",
+        "title": "AI Git Push Staged"
       }
     ],
     "configuration": {
