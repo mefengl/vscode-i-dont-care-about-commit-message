@@ -4,9 +4,6 @@
     "config:base",
     "config:recommended"
   ],
-  "schedule": [
-    "every weekend"
-  ],
   "automergeType": "branch",
   "lockFileMaintenance": {
     "automerge": true
