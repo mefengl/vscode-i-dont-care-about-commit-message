@@ -95,7 +95,7 @@ async function processGitOperation(title: string, operation: (commitMsg: string)
 	const stat = await gitHelper.diff(['--shortstat', '--staged']);
 
 	let gitInfo = '';
-	const shouldMoreContext = getChangedLinesNumber(stat) > 10;
+	const shouldMoreContext = getChangedLinesNumber(stat) < 10;
 	const diffOptions = ['--staged', ...(shouldMoreContext ? ['-U10'] : [])];
 	try {
 		const diff = await gitHelper.diff([...diffOptions, ...changedLockfiles.map(lockfile => `:!${lockfile}`)]);

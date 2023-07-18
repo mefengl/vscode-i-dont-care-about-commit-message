@@ -2,6 +2,10 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.4.3] - 2023-07-18
+
+- Fix: fix a condition for getting more context in git diff
+
 ## [0.4.2] - 2023-07-17
 
 - Add: add more context to the prompt message when changes are small
