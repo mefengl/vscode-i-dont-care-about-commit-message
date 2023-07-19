@@ -2,6 +2,8 @@
 
 Aiming to keep commit keystrokes to a bare minimum via LLM.
 
+[![I Don't Care About Commit Message](res/vscode-i-dont-care-about-commit-message.gif)](https://github.com/mefengl/vscode-i-dont-care-about-commit-message)
+
 ## Features ✨
 
 - AI Git Commit: git add . -> git commit -m "AI Generated Message"

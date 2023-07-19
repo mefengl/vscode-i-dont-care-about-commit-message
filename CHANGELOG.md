@@ -2,6 +2,10 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.4.5] - 2023-07-19
+
+- Chore: add gif to README
+
 ## [0.4.4] - 2023-07-18
 
 - Update: update description to "A VS Code extension aiming to keep commit keystrokes to a bare minimum via LLM."
