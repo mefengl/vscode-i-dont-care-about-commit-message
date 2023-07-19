@@ -8,7 +8,7 @@
   "repository": "https://github.com/mefengl/vscode-i-dont-care-about-commit-message",
   "private": true,
   "license": "MIT",
-  "version": "0.4.5",
+  "version": "0.5.0",
   "engines": {
     "vscode": "^1.79.0"
   },
