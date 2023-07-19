@@ -1,6 +1,6 @@
 # I Don't Care About Commit Message
 
-A VS Code extension aiming to keep commit keystrokes to a bare minimum via LLM.
+Aiming to keep commit keystrokes to a bare minimum via LLM.
 
 ## Features ✨
 
