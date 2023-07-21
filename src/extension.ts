@@ -36,7 +36,7 @@ async function getChatCompletion(gitInfo: string) {
 			messages: [
 				{
 					role: "system",
-					content: "only answer with single line of commit msg itself"
+					content: "only answer with single line of concise commit msg itself"
 				},
 				{
 					role: "user",
