@@ -2,6 +2,10 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.5.1] - 2023-07-21
+
+- Update: add 'concise' to the default prompt
+
 ## [0.5.0] - 2023-07-19
 
 - Add: support manual staged files
