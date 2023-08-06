@@ -7,5 +7,6 @@
   "processing-git-commit": "Verarbeitung von Git-Commit",
   "commit-successful": "Commit erfolgreich!",
   "processing-git-push": "Verarbeitung von Git-Push",
-  "push-successful": "Push erfolgreich!"
+  "push-successful": "Push erfolgreich!",
+  "select-files-to-stage": "Wählen Sie die Dateien zum Staging aus"
 }

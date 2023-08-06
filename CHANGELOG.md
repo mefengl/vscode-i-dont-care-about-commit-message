@@ -2,6 +2,10 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.6.1] - 2023-08-06
+
+- chore: i18n for the placeholder of the quickpick
+
 ## [0.6.0] - 2023-08-06
 
 - Update: now can manually stage files by vscode's quickpick instead of using the terminal

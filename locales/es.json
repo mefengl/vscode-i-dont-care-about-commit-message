@@ -7,5 +7,6 @@
   "processing-git-commit": "Procesando commit de Git",
   "commit-successful": "¡Commit exitoso!",
   "processing-git-push": "Procesando push de Git",
-  "push-successful": "¡Push exitoso!"
+  "push-successful": "¡Push exitoso!",
+  "select-files-to-stage": "Seleccionar archivos para organizar"
 }

@@ -7,5 +7,6 @@
   "processing-git-commit": "Git commit feldolgozása",
   "commit-successful": "Commit sikeres!",
   "processing-git-push": "Git push feldolgozása",
-  "push-successful": "Push sikeres!"
+  "push-successful": "Push sikeres!",
+  "select-files-to-stage": "Válassza ki a rendezendő fájlokat"
 }
