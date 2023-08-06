@@ -7,5 +7,6 @@
   "processing-git-commit": "正在處理Git提交",
   "commit-successful": "提交成功！",
   "processing-git-push": "正在處理Git推送",
-  "push-successful": "推送成功！"
+  "push-successful": "推送成功！",
+  "select-files-to-stage": "選擇要暫存的文件"
 }

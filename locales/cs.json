@@ -7,5 +7,6 @@
   "processing-git-commit": "Zpracování Git commitu",
   "commit-successful": "Commit úspěšný!",
   "processing-git-push": "Zpracování Git push",
-  "push-successful": "Push úspěšný!"
+  "push-successful": "Push úspěšný!",
+  "select-files-to-stage": "Vyberte soubory k fázi"
 }

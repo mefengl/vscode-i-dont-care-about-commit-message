@@ -7,5 +7,6 @@
   "processing-git-commit": "Git 커밋 처리 중",
   "commit-successful": "커밋 성공!",
   "processing-git-push": "Git 푸시 처리 중",
-  "push-successful": "푸시 성공!"
+  "push-successful": "푸시 성공!",
+  "select-files-to-stage": "준비할 파일 선택"
 }
