@@ -9,12 +9,14 @@ Aiming to keep commit keystrokes to a bare minimum via LLM.
 - AI Git Commit: git add . -> git commit -m "AI Generated Message"
 - AI Git Push: git add . -> git commit -m "AI Generated Message" -> git push
 
+> AI Git Commit/Push Stage: Same as above, but without using the command `git add .`.
+
 ## Usage
 
 - `Ctrl+Shift+P`
 - Search for `AI Git Commit` or `AI Git Push`
 - Press `Enter`
-  > will ask for OpenAI API Key if not set
+  > Will ask for OpenAI API Key if not set
 - Done!
 
 What's more:
