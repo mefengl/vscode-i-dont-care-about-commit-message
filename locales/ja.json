@@ -7,5 +7,6 @@
   "processing-git-commit": "Gitコミットを処理中",
   "commit-successful": "コミット成功！",
   "processing-git-push": "Gitプッシュを処理中",
-  "push-successful": "プッシュ成功！"
+  "push-successful": "プッシュ成功！",
+  "select-files-to-stage": "ステージングするファイルを選択してください"
 }

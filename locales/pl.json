@@ -7,5 +7,6 @@
   "processing-git-commit": "Przetwarzanie commitu Git",
   "commit-successful": "Commit zakończony pomyślnie!",
   "processing-git-push": "Przetwarzanie pusha Git",
-  "push-successful": "Push zakończony pomyślnie!"
+  "push-successful": "Push zakończony pomyślnie!",
+  "select-files-to-stage": "Wybierz pliki do wystawienia"
 }

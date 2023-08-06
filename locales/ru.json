@@ -7,5 +7,6 @@
   "processing-git-commit": "Обработка Git коммита",
   "commit-successful": "Коммит успешно выполнен!",
   "processing-git-push": "Обработка Git push",
-  "push-successful": "Push успешно выполнен!"
+  "push-successful": "Push успешно выполнен!",
+  "select-files-to-stage": "Выберите файлы для подготовки"
 }

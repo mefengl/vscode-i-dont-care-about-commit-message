@@ -7,5 +7,6 @@
   "processing-git-commit": "Git Commit İşleniyor",
   "commit-successful": "Commit Başarılı!",
   "processing-git-push": "Git Push İşleniyor",
-  "push-successful": "Push Başarılı!"
+  "push-successful": "Push Başarılı!",
+  "select-files-to-stage": "Hazırlanacak dosyaları seçin"
 }

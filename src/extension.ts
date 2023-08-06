@@ -92,7 +92,7 @@ async function selectAndStageFiles() {
 	const unstagedFiles = (await gitHelper.diff(['--name-only'])).split('\n').filter(Boolean);
 	const selectedFiles = await vscode.window.showQuickPick(unstagedFiles, {
 		canPickMany: true,
-		placeHolder: 'Select files to stage'
+		placeHolder: i18n.t('select-files-to-stage')
 	});
 	if (selectedFiles) {
 		await gitHelper.add(selectedFiles);
