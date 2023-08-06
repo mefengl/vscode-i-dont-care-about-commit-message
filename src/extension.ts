@@ -84,6 +84,21 @@ async function getChatCompletion(gitInfo: string) {
 	);
 }
 
+async function getStagedFiles() {
+	return (await gitHelper.diff(['--name-only', '--cached'])).split('\n').filter(Boolean);
+}
+
+async function selectAndStageFiles() {
+	const unstagedFiles = (await gitHelper.diff(['--name-only'])).split('\n').filter(Boolean);
+	const selectedFiles = await vscode.window.showQuickPick(unstagedFiles, {
+		canPickMany: true,
+		placeHolder: 'Select files to stage'
+	});
+	if (selectedFiles) {
+		await gitHelper.add(selectedFiles);
+	}
+}
+
 async function processGitOperation(title: string, operation: (commitMsg: string) => Promise<void>, addAll: boolean = true) {
 	if (!workspaceRoot) {
 		vscode.window.showInformationMessage(i18n.t('no-workspace-opened'));
@@ -124,6 +139,34 @@ async function processGitOperation(title: string, operation: (commitMsg: string)
 	});
 }
 
+async function handleStagedFiles(action: 'commit' | 'push') {
+	if (!workspaceRoot) {
+		vscode.window.showInformationMessage(i18n.t('no-workspace-opened'));
+		return;
+	}
+
+	let stagedFiles = await getStagedFiles();
+	if (stagedFiles.length === 0) {
+		await selectAndStageFiles();
+		stagedFiles = await getStagedFiles();
+		if (stagedFiles.length === 0) {
+			vscode.window.showInformationMessage(i18n.t('no-changes-to-commit'));
+			return;
+		}
+	}
+
+	await processGitOperation(i18n.t(`processing-git-${action}`), async commitMsg => {
+		if (action === 'push') {
+			const currentBranch = await gitHelper.revparse(['--abbrev-ref', 'HEAD']);
+			await gitHelper.commit(commitMsg).push('origin', currentBranch);
+			vscode.window.showInformationMessage(i18n.t('push-successful'));
+		} else {
+			await gitHelper.commit(commitMsg);
+			vscode.window.showInformationMessage(i18n.t('commit-successful'));
+		}
+	}, false);
+}
+
 export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(vscode.commands.registerCommand('gitCommitAI', async () => {
@@ -141,20 +184,8 @@ export function activate(context: vscode.ExtensionContext) {
 		});
 	}));
 
-	context.subscriptions.push(vscode.commands.registerCommand('gitCommitStagedAI', async () => {
-		await processGitOperation(i18n.t('processing-git-commit'), async commitMsg => {
-			await gitHelper.commit(commitMsg);
-			vscode.window.showInformationMessage(i18n.t('commit-successful'));
-		}, false);
-	}));
-
-	context.subscriptions.push(vscode.commands.registerCommand('gitPushStagedAI', async () => {
-		await processGitOperation(i18n.t('processing-git-push'), async commitMsg => {
-			const currentBranch = await gitHelper.revparse(['--abbrev-ref', 'HEAD']);
-			await gitHelper.commit(commitMsg).push('origin', currentBranch);
-			vscode.window.showInformationMessage(i18n.t('push-successful'));
-		}, false);
-	}));
+	context.subscriptions.push(vscode.commands.registerCommand('gitCommitStagedAI', () => handleStagedFiles('commit')));
+	context.subscriptions.push(vscode.commands.registerCommand('gitPushStagedAI', () => handleStagedFiles('push')));
 
 }
 
