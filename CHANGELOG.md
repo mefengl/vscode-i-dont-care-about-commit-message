@@ -2,9 +2,13 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.6.2] - 2023-08-07
+
+- Chore: restore the description of the extension
+
 ## [0.6.1] - 2023-08-06
 
-- chore: i18n for the placeholder of the quickpick
+- Chore: i18n for the placeholder of the quickpick
 
 ## [0.6.0] - 2023-08-06
 

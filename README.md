@@ -1,5 +1,7 @@
 # I Don't Care About Commit Message
 
+Yet another AI git commit plugin, but without the need for manual confirmation.
+
 Aiming to keep commit keystrokes to a bare minimum via LLM.
 
 [![I Don't Care About Commit Message](res/vscode-i-dont-care-about-commit-message.gif)](https://github.com/mefengl/vscode-i-dont-care-about-commit-message)
