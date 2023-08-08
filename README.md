@@ -1,29 +1,31 @@
-# I Don't Care About Commit Message
+# I Don't Care About Commit Message - The AI Git Commit Plugin
 
-Yet another AI git commit plugin, but without the need for manual confirmation.
+Yet another AI git commit plugin for VSCode, but with a twist - no need for manual confirmation! This plugin streamlines your git commit and push processes, making your workflow smoother and faster.
 
 Aiming to keep commit keystrokes to a bare minimum via LLM.
 
-[![I Don't Care About Commit Message](res/vscode-i-dont-care-about-commit-message.gif)](https://github.com/mefengl/vscode-i-dont-care-about-commit-message)
+![I Don't Care About Commit Message](https://raw.githubusercontent.com/mefengl/vscode-i-dont-care-about-commit-message/main/res/vscode-i-dont-care-about-commit-message.gif "Demonstration of AI Git Commit Plugin")
 
-## Features ✨
+[Visit GitHub Repository](https://github.com/mefengl/vscode-i-dont-care-about-commit-message)
 
-- AI Git Commit: git add . -> git commit -m "AI Generated Message"
-- AI Git Push: git add . -> git commit -m "AI Generated Message" -> git push
+## Features ✨ - AI Git Commit Plugin
+
+- **AI Git Commit**: Simplify your commits with `git add . -> git commit -m "AI Generated Message"`.
+- **AI Git Push**: Automate the entire process: `git add . -> git commit -m "AI Generated Message" -> git push`.
 
 > AI Git Commit/Push Stage: Same as above, but without using the command `git add .`.
 
-## Usage
+## Usage - AI Git Extension for VSCode
 
 - `Ctrl+Shift+P`
-- Search for `AI Git Commit` or `AI Git Push`
-- Press `Enter`
-  > Will ask for OpenAI API Key if not set
+- Search for `AI Git Commit` or `AI Git Push`.
+- Press `Enter`.
+  > Will ask for OpenAI API Key if not set.
 - Done!
 
 What's more:
 
-- Add shortcuts to the commands and use them like popping bubble wrap!
+- Add shortcuts to the commands and use them like popping bubble wrap with this AI git extension!
 
 ## Settings
 
@@ -42,7 +44,7 @@ For more options, visit [OpenAI Models Documentation](https://platform.openai.co
 
 Whether to use conventional commit, default is `false`.
 
-looks like this:
+Looks like this:
 
 ```plaintext
 <type>[optional scope]: <description>
@@ -56,11 +58,11 @@ looks like this:
 
 ### OpenAI API Key
 
-Specify the OpenAI API Key.
+Specify the OpenAI API Key for this AI git extension.
 
 ## Language Support
 
-This extension interface supports multiple languages:
+This AI git commit plugin interface supports multiple languages, making it accessible for developers around the world:
 
 | Language            | Code   | Language            | Code   |
 | ------------------- | ------ | ------------------- | ------ |
@@ -79,14 +81,14 @@ This extension interface supports multiple languages:
 - Add a way to deal with manual staged files ✅
 - Add a much easier way to regret the commit
 
-## Development
+## Development - Building the AI Git Commit Plugin
 
 For development, follow these steps:
 
 1. Clone the repository and navigate into it.
-Run `npm install` to install all the necessary dependencies.
-2. Run `npm run watch` to start the development server.
-3. Press `F5` to start the plugin in a new VSCode window.
+2. Run `npm install` to install all the necessary dependencies.
+3. Run `npm run watch` to start the development server.
+4. Press `F5` to start the plugin in a new VSCode window.
 
 For testing, run `npm run test`.
 
@@ -94,10 +96,10 @@ For testing, run `npm run test`.
 
 - `I don't care about cookies`: For the funny way of naming
 - [Simple Git](https://github.com/steveukx/git-js) @steveukx: It would be much harder without this
-- [Convensional Commits](https://www.conventionalcommits.org/en/v1.0.0/): For the conventional commit format
+- [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/): For the conventional commit format
   > The `Conventional Commits` format used in this tool is based on the [Conventional Commits specification (v1.0.0)](https://www.conventionalcommits.org/en/v1.0.0/), which is licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
-- [aicommits](https://github.com/Nutlope/aicommits) @Nutlope: The cli ai commit tool I used before I created my own
-- [OpenAI API](https://platform.openai.com/docs/api-reference/chat): It makes this extension possible
+- [aicommits](https://github.com/Nutlope/aicommits) @Nutlope: The CLI AI commit tool I used before I created my own
+- [OpenAI API](https://platform.openai.com/docs/api-reference/chat): It makes this AI git extension possible
 - [weekly](https://github.com/ruanyf/weekly) @ruanyf: For making this project known and used by more people
 
 ## License
