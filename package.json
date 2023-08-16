@@ -103,7 +103,7 @@
     "@vscode/test-electron": "^2.3.2",
     "eslint": "^8.41.0",
     "glob": "^10.0.0",
-    "openai": "^3.3.0",
+    "openai": "^4.0.0",
     "simple-git": "^3.19.1",
     "ts-loader": "^9.4.3",
     "tsup": "^7.1.0",
