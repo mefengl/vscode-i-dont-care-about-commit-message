@@ -2,6 +2,10 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.7.0] - 2023-08-17
+
+- Update: now able to show error message from OpenAI
+
 ## [0.6.2] - 2023-08-07
 
 - Chore: restore the description of the extension
