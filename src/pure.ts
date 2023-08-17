@@ -43,14 +43,14 @@ export const createConventionalCommit = ({
 export function processChatCompletion(chatCompletion: any, useConventionalCommit: boolean) {
   if (!chatCompletion) { return ''; }
   if (useConventionalCommit) {
-    const content = chatCompletion.data.choices[0].message?.function_call?.arguments;
+    const content = chatCompletion.choices[0].message?.function_call?.arguments;
     if (!content) {
       return '';
     }
     const contentJSON = JSON.parse(content) as CreateConventionalCommitOptions;
     return createConventionalCommit(contentJSON);
   } else {
-    return chatCompletion.data.choices[0].message?.content || '';
+    return chatCompletion.choices[0].message?.content || '';
   }
 }
 
