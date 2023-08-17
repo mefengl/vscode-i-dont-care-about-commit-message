@@ -20,22 +20,20 @@ describe('Extension Test Suite', () => {
 
 	it('processChatCompletion Test - Conventional Commit', () => {
 		const chatCompletion = {
-			data: {
-				choices: [{
-					message: {
-						function_call: {
-							arguments: JSON.stringify({
-								type: 'type',
-								scope: 'scope',
-								description: 'description',
-								body: 'body',
-								footer: 'footer',
-								isBreakingChange: false,
-							})
-						}
+			choices: [{
+				message: {
+					function_call: {
+						arguments: JSON.stringify({
+							type: 'type',
+							scope: 'scope',
+							description: 'description',
+							body: 'body',
+							footer: 'footer',
+							isBreakingChange: false,
+						})
 					}
-				}]
-			}
+				}
+			}]
 		};
 		const commitMsg = processChatCompletion(chatCompletion, true);
 
@@ -44,13 +42,11 @@ describe('Extension Test Suite', () => {
 
 	it('processChatCompletion Test - Non-Conventional Commit', () => {
 		const chatCompletion = {
-			data: {
-				choices: [{
-					message: {
-						content: 'Commit message'
-					}
-				}]
-			}
+			choices: [{
+				message: {
+					content: 'Commit message'
+				}
+			}]
 		};
 		const commitMsg = processChatCompletion(chatCompletion, false);
 

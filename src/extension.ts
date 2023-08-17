@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { simpleGit } from 'simple-git';
-import { OpenAIApi, Configuration } from 'openai';
+import OpenAI from 'openai';
 import { i18n } from './i18n';
 import { checkLockfiles, getChangedLinesNumber, getGitInfo, processChatCompletion } from './pure';
 
@@ -26,11 +26,11 @@ async function getChatCompletion(gitInfo: string) {
 		return null;
 	}
 	const model = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('model') as string;
-	const configuration = new Configuration({ apiKey: openaiKey });
-	const openai = new OpenAIApi(configuration);
+	
+	const openai = new OpenAI({ apiKey: openaiKey });
 	const useConventionalCommit = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('useConventionalCommit') as boolean;
 
-	return await openai.createChatCompletion(
+	return await openai.chat.completions.create(
 		{
 			model: model,
 			messages: [
