@@ -26,12 +26,12 @@ async function getChatCompletion(gitInfo: string) {
 		return null;
 	}
 	const model = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('model') as string;
-	
+
 	const openai = new OpenAI({ apiKey: openaiKey });
 	const useConventionalCommit = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('useConventionalCommit') as boolean;
 
-	return await openai.chat.completions.create(
-		{
+	try {
+		return await openai.chat.completions.create({
 			model: model,
 			messages: [
 				{
@@ -80,8 +80,13 @@ async function getChatCompletion(gitInfo: string) {
 				}
 			] : undefined,
 			function_call: useConventionalCommit ? { name: "createConventionalCommit" } : undefined
+		});
+	} catch (error) {
+		if (error instanceof OpenAI.APIError) {
+			vscode.window.showErrorMessage(error.message);
 		}
-	);
+		return null;
+	}
 }
 
 async function getStagedFiles() {
