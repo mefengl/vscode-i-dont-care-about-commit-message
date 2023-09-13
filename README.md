@@ -75,12 +75,6 @@ This AI git commit plugin interface supports multiple languages, making it acces
 | Polski              | pl     | Čeština             | cs     |
 | Magyar              | hu     |                     |        |
 
-## Todos 🎏
-
-- Add more context to the prompt when the change itself is too small ✅
-- Add a way to deal with manual staged files ✅
-- Add a much easier way to regret the commit
-
 ## Development - Building the AI Git Commit Plugin
 
 For development, follow these steps:
