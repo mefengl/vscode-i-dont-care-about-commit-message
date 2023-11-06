@@ -11,19 +11,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
-        cache: 'npm'
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: npm
 
-    - name: Install Dependencies
-      run: npm ci
+      - name: Install Dependencies
+        run: npm ci
 
-    - name: Run lint
-      run: npm run lint
+      - name: Run lint
+        run: npm run lint
 
-    - name: Run test
-      run: npm test
+      - name: Run test
+        run: npm test

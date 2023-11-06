@@ -1,23 +1,13 @@
 {
+  "publisher": "mefengl",
   "name": "vscode-i-dont-care-about-commit-message",
   "displayName": "I Don't Care About Commit Message",
-  "description": "Yet another AI git commit plugin, but without the need for manual confirmation.",
-  "icon": "res/logo.png",
-  "author": "mefengl",
-  "publisher": "mefengl",
-  "repository": "https://github.com/mefengl/vscode-i-dont-care-about-commit-message",
-  "private": true,
-  "license": "MIT",
   "version": "0.7.1",
-  "engines": {
-    "vscode": "^1.79.0"
-  },
-  "categories": [
-    "Machine Learning",
-    "SCM Providers",
-    "Education",
-    "Snippets"
-  ],
+  "private": true,
+  "description": "Yet another AI git commit plugin, but without the need for manual confirmation.",
+  "author": "mefengl",
+  "license": "MIT",
+  "repository": "https://github.com/mefengl/vscode-i-dont-care-about-commit-message",
   "keywords": [
     "ai",
     "autocomplete",
@@ -45,8 +35,18 @@
     "ruby",
     "typescript"
   ],
-  "activationEvents": [],
+  "categories": [
+    "Machine Learning",
+    "SCM Providers",
+    "Education",
+    "Snippets"
+  ],
   "main": "./dist/extension.js",
+  "icon": "res/logo.png",
+  "engines": {
+    "vscode": "^1.79.0"
+  },
+  "activationEvents": [],
   "contributes": {
     "commands": [
       {
@@ -91,17 +91,17 @@
     "compile": "tsup ./src/extension.ts --external vscode --minify",
     "watch": "tsup ./src/extension.ts --external vscode --watch --sourcemap",
     "test": "vitest run",
-    "lint": "eslint src --ext ts",
-    "lint:fix": "eslint src --ext ts --fix"
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
-  "dependencies": {},
   "devDependencies": {
+    "@antfu/eslint-config": "^1.1.0",
     "@types/glob": "^8.1.0",
     "@types/vscode": "^1.79.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vscode/test-electron": "^2.3.2",
-    "eslint": "^8.41.0",
+    "eslint": "^8.53.0",
     "glob": "^10.0.0",
     "openai": "^4.0.0",
     "simple-git": "^3.19.1",
