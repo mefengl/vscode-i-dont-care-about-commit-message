@@ -6,7 +6,9 @@ Aiming to keep commit keystrokes to a bare minimum via LLM.
 
 ![I Don't Care About Commit Message](https://raw.githubusercontent.com/mefengl/vscode-i-dont-care-about-commit-message/main/res/vscode-i-dont-care-about-commit-message.gif "Demonstration of AI Git Commit Plugin")
 
-[Visit GitHub Repository](https://github.com/mefengl/vscode-i-dont-care-about-commit-message)
+[Visit Github Repository | 访问 Github 仓库 | Githubのリポジトリを見る](https://github.com/mefengl/vscode-i-dont-care-about-commit-message)
+
+[Join Discord Server | 加入 Discord 讨论 | Discordのディスカッションに参加する](https://discord.gg/pwTKpnc2sF)
 
 ## Features ✨ - AI Git Commit Plugin
 
