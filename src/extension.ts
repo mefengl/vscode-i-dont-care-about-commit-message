@@ -30,9 +30,9 @@ async function getChatCompletion(gitInfo: string) {
   const openai = new OpenAI({
     apiKey: openaiKey,
     baseURL: vscode.workspace
-      .getConfiguration("iDontCareAboutCommitMessage")
-      .get("openaiBaseURL") as string | undefined,
-  });
+      .getConfiguration('iDontCareAboutCommitMessage')
+      .get('openaiBaseURL') as string | undefined,
+  })
 
   const useConventionalCommit = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('useConventionalCommit') as boolean
 
