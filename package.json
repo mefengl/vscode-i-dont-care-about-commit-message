@@ -2,7 +2,7 @@
   "publisher": "mefengl",
   "name": "vscode-i-dont-care-about-commit-message",
   "displayName": "I Don't Care About Commit Message",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "private": true,
   "description": "Yet another AI git commit plugin, but without the need for manual confirmation.",
   "author": "mefengl",
@@ -68,6 +68,11 @@
     ],
     "configuration": {
       "properties": {
+        "iDontCareAboutCommitMessage.openaiBaseURL": {
+          "type": "string",
+          "default": "https://api.openai.com/v1",
+          "description": "OpenAI API Base URL"
+        },
         "iDontCareAboutCommitMessage.openaiApiKey": {
           "type": "string",
           "default": "",
