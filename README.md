@@ -1,3 +1,4 @@
+<!-- DO NOT REMOVE - contributor_list:data:start:["mefengl", "renovate[bot]", "esonwong"]:end -->
 # I Don't Care About Commit Message - The AI Git Commit Plugin
 
 Yet another AI git commit plugin for VSCode, but with a twist - no need for manual confirmation! This plugin streamlines your git commit and push processes, making your workflow smoother and faster.
@@ -105,3 +106,17 @@ For testing, run `npm run test`.
 ## License
 
 MIT
+
+<!-- prettier-ignore-start -->
+<!-- DO NOT REMOVE - contributor_list:start -->
+## 👥 Contributors
+
+
+- **[@mefengl](https://github.com/mefengl)**
+
+- **[@renovate[bot]](https://github.com/apps/renovate)**
+
+- **[@esonwong](https://github.com/esonwong)**
+
+<!-- DO NOT REMOVE - contributor_list:end -->
+<!-- prettier-ignore-end -->
