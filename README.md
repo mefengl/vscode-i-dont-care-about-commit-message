@@ -62,6 +62,10 @@ Looks like this:
 
 Specify the OpenAI API Key for this AI git extension.
 
+### OpenAI API Base URL
+
+Specify the OpenAI API Base URL, default is `https://api.openai.com/v1`.
+
 ## Language Support
 
 This AI git commit plugin interface supports multiple languages, making it accessible for developers around the world:
