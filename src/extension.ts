@@ -200,6 +200,17 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(vscode.commands.registerCommand('gitCommitStagedAI', () => handleStagedFiles('commit')))
   context.subscriptions.push(vscode.commands.registerCommand('gitPushStagedAI', () => handleStagedFiles('push')))
+
+  context.subscriptions.push(vscode.commands.registerCommand('gitCommitX', async () => {
+    if (!workspaceRoot) {
+      vscode.window.showInformationMessage(i18n.t('no-workspace-opened'))
+      return
+    }
+
+    await gitHelper.add('.')
+    await gitHelper.commit('x')
+    vscode.window.showInformationMessage('Commit successful with message "x"')
+  }))
 }
 
 export function deactivate() { }

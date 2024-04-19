@@ -64,6 +64,10 @@
       {
         "command": "gitPushStagedAI",
         "title": "AI Git Push Staged"
+      },
+      {
+        "command": "gitCommitX",
+        "title": "I Really Don't Care Commit"
       }
     ],
     "configuration": {
