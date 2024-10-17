@@ -59,6 +59,10 @@ Looks like this:
 
 > It will be slower and just a little more expensive since it needs to generate more.
 
+### Use Chinese Commit
+
+Whether to generate commit messages in Chinese, default is `false`.
+
 ### OpenAI API Key
 
 Specify the OpenAI API Key for this AI git extension.

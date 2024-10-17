@@ -91,6 +91,11 @@
           "type": "boolean",
           "default": false,
           "description": "Whether to use conventional commit"
+        },
+        "iDontCareAboutCommitMessage.useChineseCommit": {
+          "type": "boolean",
+          "default": false,
+          "description": "使用中文生成提交信息"
         }
       }
     }

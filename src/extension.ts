@@ -35,6 +35,7 @@ async function getChatCompletion(gitInfo: string) {
   })
 
   const useConventionalCommit = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('useConventionalCommit') as boolean
+  const useChineseCommit = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('useChineseCommit') as boolean
 
   try {
     return await openai.chat.completions.create({
@@ -42,7 +43,9 @@ async function getChatCompletion(gitInfo: string) {
       messages: [
         {
           role: 'system',
-          content: 'only answer with single line of concise commit msg itself',
+          content: useChineseCommit
+            ? '只回答一行简洁的中文提交信息，保持类型和范围为英文，但描述部分使用中文'
+            : 'only answer with single line of concise commit msg itself',
         },
         {
           role: 'user',
@@ -53,7 +56,9 @@ async function getChatCompletion(gitInfo: string) {
         ? [
             {
               name: 'createConventionalCommit',
-              description: 'Create a conventional commit message.',
+              description: useChineseCommit
+                ? '创建一个常规提交信息。保持类型和范围为英文，但描述部分使用中文'
+                : 'Create a conventional commit message.',
               parameters: {
                 type: 'object',
                 properties: {
