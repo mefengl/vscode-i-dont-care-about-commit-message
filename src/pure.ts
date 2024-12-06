@@ -47,10 +47,10 @@ export function processChatCompletion(chatCompletion: any, useConventionalCommit
       return ''
 
     const contentJSON = JSON.parse(content) as CreateConventionalCommitOptions
-    return createConventionalCommit(contentJSON)
+    return removeQuotes(createConventionalCommit(contentJSON))
   }
   else {
-    return chatCompletion.choices[0].message?.content || ''
+    return removeQuotes(chatCompletion.choices[0].message?.content || '')
   }
 }
 
@@ -71,4 +71,8 @@ export function getGitInfo({ diff, changedLockfiles }: {
     gitInfo += `Changed lockfiles:${changedLockfiles.join(',')}`
 
   return gitInfo
+}
+
+export function removeQuotes(str: string): string {
+  return str.replace(/^"|"$/g, '')
 }
