@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { checkLockfiles, createConventionalCommit, getChangedLinesNumber, getGitInfo, processChatCompletion } from '../src/pure'
+import { checkLockfiles, createConventionalCommit, getChangedLinesNumber, getGitInfo, processChatCompletion, removeQuotes } from '../src/pure'
 
 afterEach(() => {
   vi.restoreAllMocks()
@@ -105,5 +105,28 @@ describe('getChangedLinesNumber Test', () => {
     const result = getChangedLinesNumber(stat)
 
     expect(result).toBe(22)
+  })
+})
+
+describe('removeQuotes Test', () => {
+  it('should remove quotes from the beginning and end of a string', () => {
+    const str = '"Hello, World!"'
+    const result = removeQuotes(str)
+
+    expect(result).toBe('Hello, World!')
+  })
+
+  it('should return the same string if there are no quotes', () => {
+    const str = 'Hello, World!'
+    const result = removeQuotes(str)
+
+    expect(result).toBe('Hello, World!')
+  })
+
+  it('should remove only the quotes at the beginning and end', () => {
+    const str = '"Hello, "World!"'
+    const result = removeQuotes(str)
+
+    expect(result).toBe('Hello, "World!')
   })
 })
