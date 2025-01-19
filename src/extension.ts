@@ -189,6 +189,35 @@ async function handleStagedFiles(action: 'commit' | 'push') {
   }, false)
 }
 
+async function handleStagedFilesMinimal(action: 'commit' | 'push') {
+  if (!workspaceRoot) {
+    vscode.window.showInformationMessage(i18n.t('no-workspace-opened'))
+    return
+  }
+
+  let stagedFiles = await getStagedFiles()
+  if (stagedFiles.length === 0) {
+    await selectAndStageFiles()
+    stagedFiles = await getStagedFiles()
+    if (stagedFiles.length === 0) {
+      vscode.window.showInformationMessage(i18n.t('no-changes-to-commit'))
+      return
+    }
+  }
+
+  await processGitOperation(i18n.t(`processing-git-${action}`), async (commitMsg) => {
+    if (action === 'push') {
+      const currentBranch = await gitHelper.revparse(['--abbrev-ref', 'HEAD'])
+      await gitHelper.commit(commitMsg).push('origin', currentBranch)
+      vscode.window.showInformationMessage(i18n.t('push-successful'))
+    }
+    else {
+      await gitHelper.commit(commitMsg)
+      vscode.window.showInformationMessage(i18n.t('commit-successful'))
+    }
+  }, false, true)
+}
+
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(vscode.commands.registerCommand('gitCommitAI', async () => {
     await processGitOperation(i18n.t('processing-git-commit'), async (commitMsg) => {
@@ -233,6 +262,9 @@ export function activate(context: vscode.ExtensionContext) {
       vscode.window.showInformationMessage(i18n.t('push-successful'))
     }, true, true)
   }))
+
+  context.subscriptions.push(vscode.commands.registerCommand('gitCommitStagedMinimal', () => handleStagedFilesMinimal('commit')))
+  context.subscriptions.push(vscode.commands.registerCommand('gitPushStagedMinimal', () => handleStagedFilesMinimal('push')))
 }
 
 export function deactivate() { }

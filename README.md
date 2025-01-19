@@ -112,7 +112,6 @@ MIT
 <!-- DO NOT REMOVE - contributor_list:start -->
 ## 👥 Contributors
 
-
 - **[@mefengl](https://github.com/mefengl)**
 
 - **[@renovate[bot]](https://github.com/apps/renovate)**

@@ -76,6 +76,14 @@
       {
         "command": "gitPushMinimal",
         "title": "AI Git Push (Minimal)"
+      },
+      {
+        "command": "gitCommitStagedMinimal",
+        "title": "AI Git Commit Staged (Minimal)"
+      },
+      {
+        "command": "gitPushStagedMinimal",
+        "title": "AI Git Push Staged (Minimal)"
       }
     ],
     "configuration": {
