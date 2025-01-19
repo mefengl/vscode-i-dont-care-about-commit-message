@@ -20,7 +20,7 @@ async function getOpenAIKey(): Promise<string> {
   return openaiKey
 }
 
-async function getChatCompletion(gitInfo: string) {
+async function getChatCompletion(gitInfo: string, isMinimal = false) {
   const openaiKey = await getOpenAIKey()
   if (!openaiKey)
     return null
@@ -34,7 +34,7 @@ async function getChatCompletion(gitInfo: string) {
       .get('openaiBaseURL') as string | undefined,
   })
 
-  const useConventionalCommit = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('useConventionalCommit') as boolean
+  const useConventionalCommit = !isMinimal && vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('useConventionalCommit') as boolean
 
   try {
     return await openai.chat.completions.create({
@@ -42,7 +42,9 @@ async function getChatCompletion(gitInfo: string) {
       messages: [
         {
           role: 'system',
-          content: 'only answer with single line of concise commit msg itself',
+          content: isMinimal
+            ? 'respond with 1-3 lowercase words only, no punctuation, describing the main change'
+            : 'only answer with single line of concise commit msg itself',
         },
         {
           role: 'user',
@@ -112,7 +114,12 @@ async function selectAndStageFiles() {
     await gitHelper.add(selectedFiles)
 }
 
-async function processGitOperation(title: string, operation: (commitMsg: string) => Promise<void>, addAll: boolean = true) {
+async function processGitOperation(
+  title: string,
+  operation: (commitMsg: string) => Promise<void>,
+  addAll: boolean = true,
+  isMinimal: boolean = false,
+) {
   if (!workspaceRoot) {
     vscode.window.showInformationMessage(i18n.t('no-workspace-opened'))
     return
@@ -146,7 +153,7 @@ async function processGitOperation(title: string, operation: (commitMsg: string)
     title,
     cancellable: false,
   }, async () => {
-    const chatCompletion = await getChatCompletion(gitInfo)
+    const chatCompletion = await getChatCompletion(gitInfo, isMinimal)
     const useConventionalCommit = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('useConventionalCommit') as boolean
     const commitMsg = processChatCompletion(chatCompletion, useConventionalCommit)
     await operation(commitMsg)
@@ -210,6 +217,21 @@ export function activate(context: vscode.ExtensionContext) {
     await gitHelper.add('.')
     await gitHelper.commit('x')
     vscode.window.showInformationMessage('Commit successful with message "x"')
+  }))
+
+  context.subscriptions.push(vscode.commands.registerCommand('gitCommitMinimal', async () => {
+    await processGitOperation(i18n.t('processing-git-commit'), async (commitMsg) => {
+      await gitHelper.commit(commitMsg)
+      vscode.window.showInformationMessage(i18n.t('commit-successful'))
+    }, true, true)
+  }))
+
+  context.subscriptions.push(vscode.commands.registerCommand('gitPushMinimal', async () => {
+    await processGitOperation(i18n.t('processing-git-push'), async (commitMsg) => {
+      const currentBranch = await gitHelper.revparse(['--abbrev-ref', 'HEAD'])
+      await gitHelper.commit(commitMsg).push('origin', currentBranch)
+      vscode.window.showInformationMessage(i18n.t('push-successful'))
+    }, true, true)
   }))
 }
 

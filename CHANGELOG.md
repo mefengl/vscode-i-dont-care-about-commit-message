@@ -2,6 +2,10 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.8.0] - 2025-01-19
+
+- Add: minimal commit command that generates 1-3 word messages
+
 ## [0.7.1] - 2023-09-13
 
 - Chore: update dependencies

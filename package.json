@@ -68,6 +68,14 @@
       {
         "command": "gitCommitX",
         "title": "I Really Don't Care Commit"
+      },
+      {
+        "command": "gitCommitMinimal",
+        "title": "AI Git Commit (Minimal)"
+      },
+      {
+        "command": "gitPushMinimal",
+        "title": "AI Git Push (Minimal)"
       }
     ],
     "configuration": {

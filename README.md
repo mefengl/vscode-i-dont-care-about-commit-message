@@ -15,6 +15,7 @@ Aiming to keep commit keystrokes to a bare minimum via LLM.
 
 - **AI Git Commit**: Simplify your commits with `git add . -> git commit -m "AI Generated Message"`.
 - **AI Git Push**: Automate the entire process: `git add . -> git commit -m "AI Generated Message" -> git push`.
+- **AI Git Commit/Push (Minimal)**: Same as above but generates ultra-minimal 1-3 word commit messages.
 
 > AI Git Commit/Push Stage: Same as above, but without using the command `git add .`.
 
