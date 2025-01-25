@@ -2,7 +2,7 @@
   "publisher": "mefengl",
   "name": "vscode-i-dont-care-about-commit-message",
   "displayName": "I Don't Care About Commit Message",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "private": true,
   "description": "Yet another AI git commit plugin, but without the need for manual confirmation.",
   "author": "mefengl",
