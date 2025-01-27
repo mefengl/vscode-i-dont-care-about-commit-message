@@ -43,7 +43,7 @@ async function getChatCompletion(gitInfo: string, isMinimal = false) {
         {
           role: 'system',
           content: isMinimal
-            ? 'write core change in one or two short words. use one word if clear enough. add type(ref conventional commit) if applicable. all lowercase. no punctuation.'
+            ? 'write core change in one or two short words. use one word if clear enough. prefixed type with colon if applicable (ref conventional commit) . all lowercase. no punctuation.'
             : 'only answer with single line of concise commit msg itself',
         },
         {
