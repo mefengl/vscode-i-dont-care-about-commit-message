@@ -120,7 +120,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "publish": "vsce publish --no-dependencies",
-    "release": "bumpp && nr publish"
+    "release": "bumpp -y && nr publish"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^1.1.0",
