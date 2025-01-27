@@ -42,7 +42,7 @@
     "Snippets"
   ],
   "main": "./dist/extension.js",
-  "icon": "res/logo.png",
+  "icon": "res/icon.png",
   "engines": {
     "vscode": "^1.79.0"
   },
