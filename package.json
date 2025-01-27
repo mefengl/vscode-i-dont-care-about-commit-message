@@ -118,7 +118,9 @@
     "watch": "tsup ./src/extension.ts --external vscode --watch --sourcemap",
     "test": "vitest run",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "publish": "vsce publish --no-dependencies",
+    "release": "bumpp && nr publish"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^1.1.0",
@@ -127,7 +129,8 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vscode/test-electron": "^2.3.2",
-    "bumpp": "^9.8.1",
+    "@vscode/vsce": "^3.2.1",
+    "bumpp": "^9.11.1",
     "eslint": "^8.53.0",
     "glob": "^10.0.0",
     "openai": "^4.0.0",
