@@ -7,37 +7,29 @@
   "description": "Yet another AI git commit plugin, but without the need for manual confirmation.",
   "author": "mefengl",
   "license": "MIT",
-  "repository": "https://github.com/mefengl/vscode-i-dont-care-about-commit-message",
+  "funding": "https://github.com/sponsors/mefengl",
+  "homepage": "https://github.com/mefengl/vscode-i-dont-care-about-commit-message#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mefengl/vscode-i-dont-care-about-commit-message"
+  },
+  "bugs": {
+    "url": "https://github.com/mefengl/vscode-i-dont-care-about-commit-message/issues"
+  },
+  "sponsor": {
+    "url": "https://github.com/sponsors/mefengl"
+  },
   "keywords": [
+    "git",
+    "commit",
     "ai",
     "autocomplete",
-    "c",
-    "c#",
-    "c++",
-    "co-pilot",
-    "codex",
-    "commit",
-    "documentation",
-    "git",
-    "go",
-    "golang",
-    "gpt-3.5-turbo",
-    "gpt-3.5",
-    "gpt-3",
-    "gpt-4",
-    "java",
-    "javascript",
-    "kotlin",
     "openai",
-    "php",
-    "pilot",
-    "python",
-    "ruby",
-    "typescript"
+    "copilot"
   ],
   "categories": [
-    "Machine Learning",
     "SCM Providers",
+    "Machine Learning",
     "Education",
     "Snippets"
   ],
