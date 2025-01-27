@@ -10,7 +10,7 @@ const gitHelper = simpleGit(workspaceRoot)
 async function getOpenAIKey(): Promise<string> {
   let openaiKey = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('openaiApiKey') as string | undefined
   if (!openaiKey) {
-    openaiKey = await vscode.window.showInputBox({ prompt: i18n.t('enter-your-openai-api-key') })
+    openaiKey = await vscode.window.showInputBox({ prompt: i18n.t('enter-your-openai-api-key') , password: true})
     if (!openaiKey) {
       vscode.window.showErrorMessage(i18n.t('no-openai-api-key-provided'))
       return ''
