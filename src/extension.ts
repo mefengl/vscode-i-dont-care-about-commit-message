@@ -26,28 +26,41 @@ function shouldUseCopilot(): boolean {
 }
 
 // Function to select Copilot model
-async function selectCopilotModel(): Promise<vscode.LanguageModelChatModel | null> {
+async function selectCopilotModel(): Promise<vscode.LanguageModelChat | null> {
   const models = await vscode.lm.selectChatModels({ vendor: 'copilot' })
   if (!models.length) {
     vscode.window.showErrorMessage(i18n.t('no-copilot-models-available'))
     return null
   }
-  const selectedModelId = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('selectedCopilotModel') as string | undefined
 
-  // If a model is already selected, return it
+  // Always show model selection dialog to allow changing the model
+  const selectedModelId = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('selectedCopilotModel') as string | undefined
+  const modelItems = models.map((m) => {
+    // Mark the currently selected model
+    const isSelected = m.id === selectedModelId
+    return {
+      label: isSelected ? `$(check) ${m.name}` : m.name,
+      detail: m.id,
+      model: m,
+    }
+  })
+
+  const selectedItem = await vscode.window.showQuickPick(modelItems, {
+    placeHolder: i18n.t('select-copilot-model'),
+  })
+
+  if (selectedItem) {
+    await vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').update('selectedCopilotModel', selectedItem.model.id, vscode.ConfigurationTarget.Global)
+    return selectedItem.model
+  }
+
+  // If user cancels selection but a model was previously selected, return that model
   if (selectedModelId) {
     const model = models.find(m => m.id === selectedModelId)
     if (model)
       return model
   }
 
-  // Otherwise ask user to select one
-  const modelItems = models.map(m => ({ label: m.name, detail: m.id, model: m }))
-  const selectedItem = await vscode.window.showQuickPick(modelItems, { placeHolder: i18n.t('select-copilot-model') })
-  if (selectedItem) {
-    await vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').update('selectedCopilotModel', selectedItem.model.id, vscode.ConfigurationTarget.Global)
-    return selectedItem.model
-  }
   return null
 }
 
