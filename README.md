@@ -24,7 +24,7 @@ Aiming to keep commit keystrokes to a bare minimum via LLM.
 - `Ctrl+Shift+P`
 - Search for `AI Git Commit` or `AI Git Push`.
 - Press `Enter`.
-  > Will ask for OpenAI API Key if not set.
+  > Will ask for OpenAI API Key if not set, or use GitHub Copilot if enabled.
 - Done!
 
 What's more:
@@ -32,6 +32,13 @@ What's more:
 - Add shortcuts to the commands and use them like popping bubble wrap with this AI git extension!
 
 ## Settings
+
+### Use GitHub Copilot
+
+Enable `useCopilot` option to use GitHub Copilot for generating commit messages instead of OpenAI API.
+This requires an active GitHub Copilot subscription.
+
+To select a specific Copilot model, use the command `AI Git Commit: Select Copilot Model`.
 
 ### Model
 
@@ -102,6 +109,7 @@ For testing, run `npm run test`.
   > The `Conventional Commits` format used in this tool is based on the [Conventional Commits specification (v1.0.0)](https://www.conventionalcommits.org/en/v1.0.0/), which is licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
 - [aicommits](https://github.com/Nutlope/aicommits) @Nutlope: The CLI AI commit tool I used before I created my own
 - [OpenAI API](https://platform.openai.com/docs/api-reference/chat): It makes this AI git extension possible
+- [GitHub Copilot](https://github.com/features/copilot): Alternative AI provider for generating commit messages
 - [weekly](https://github.com/ruanyf/weekly) @ruanyf: For making this project known and used by more people
 
 ## License

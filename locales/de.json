@@ -8,5 +8,7 @@
   "commit-successful": "Commit erfolgreich!",
   "processing-git-push": "Verarbeitung von Git-Push",
   "push-successful": "Push erfolgreich!",
-  "select-files-to-stage": "Wählen Sie die Dateien zum Staging aus"
+  "select-files-to-stage": "Wählen Sie die Dateien zum Staging aus",
+  "no-copilot-models-available": "Keine Copilot-Modelle verfügbar.",
+  "select-copilot-model": "Wählen Sie ein Copilot-Modell aus"
 }

@@ -8,5 +8,7 @@
   "commit-successful": "コミット成功！",
   "processing-git-push": "Gitプッシュを処理中",
   "push-successful": "プッシュ成功！",
-  "select-files-to-stage": "ステージングするファイルを選択してください"
+  "select-files-to-stage": "ステージングするファイルを選択してください",
+  "no-copilot-models-available": "利用可能なCopilotモデルがありません。",
+  "select-copilot-model": "Copilotモデルを選択してください"
 }

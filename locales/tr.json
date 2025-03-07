@@ -8,5 +8,7 @@
   "commit-successful": "Commit Başarılı!",
   "processing-git-push": "Git Push İşleniyor",
   "push-successful": "Push Başarılı!",
-  "select-files-to-stage": "Hazırlanacak dosyaları seçin"
+  "select-files-to-stage": "Hazırlanacak dosyaları seçin",
+  "no-copilot-models-available": "Kullanılabilir Copilot modeli yok.",
+  "select-copilot-model": "Bir Copilot modeli seçin"
 }

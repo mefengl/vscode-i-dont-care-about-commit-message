@@ -8,5 +8,7 @@
   "commit-successful": "提交成功！",
   "processing-git-push": "正在处理Git推送",
   "push-successful": "推送成功！",
-  "select-files-to-stage": "选择要暂存的文件"
+  "select-files-to-stage": "选择要暂存的文件",
+  "no-copilot-models-available": "没有可用的Copilot模型。",
+  "select-copilot-model": "选择Copilot模型"
 }

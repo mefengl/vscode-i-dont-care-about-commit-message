@@ -20,7 +20,99 @@ async function getOpenAIKey(): Promise<string> {
   return openaiKey
 }
 
+// Function to check if user wants to use Copilot
+function shouldUseCopilot(): boolean {
+  return vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('useCopilot') as boolean
+}
+
+// Function to select Copilot model
+async function selectCopilotModel(): Promise<vscode.LanguageModelChatModel | null> {
+  const models = await vscode.lm.selectChatModels({ vendor: 'copilot' })
+  if (!models.length) {
+    vscode.window.showErrorMessage(i18n.t('no-copilot-models-available'))
+    return null
+  }
+  const selectedModelId = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('selectedCopilotModel') as string | undefined
+  
+  // If a model is already selected, return it
+  if (selectedModelId) {
+    const model = models.find(m => m.id === selectedModelId)
+    if (model) return model
+  }
+  
+  // Otherwise ask user to select one
+  const modelItems = models.map(m => ({ label: m.name, detail: m.id, model: m }))
+  const selectedItem = await vscode.window.showQuickPick(modelItems, { placeHolder: i18n.t('select-copilot-model') })
+  if (selectedItem) {
+    await vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').update('selectedCopilotModel', selectedItem.model.id, vscode.ConfigurationTarget.Global)
+    return selectedItem.model
+  }
+  return null
+}
+
+// Function to get chat completion from Copilot
+async function getCopilotCompletion(gitInfo: string, isMinimal = false): Promise<any> {
+  let model = null
+  const selectedModelId = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('selectedCopilotModel') as string | undefined
+  
+  if (selectedModelId) {
+    const models = await vscode.lm.selectChatModels({ vendor: 'copilot' })
+    model = models.find(m => m.id === selectedModelId)
+  }
+  
+  if (!model) {
+    model = await selectCopilotModel()
+    if (!model) {
+      return null
+    }
+  }
+  
+  const messages = [
+    vscode.LanguageModelChatMessage.System(isMinimal
+      ? 'write core change in one or two short words. use one word if clear enough. all lowercase. no punctuation.'
+      : 'only answer with single line of concise commit msg itself'),
+    vscode.LanguageModelChatMessage.User(gitInfo)
+  ]
+  
+  try {
+    const token = new vscode.CancellationTokenSource().token
+    const chatResponse = await model.sendRequest(messages, {}, token)
+    
+    if (!chatResponse) {
+      return null
+    }
+    
+    // Create a response similar to what OpenAI would return for consistent processing
+    let content = ""
+    for await (const fragment of chatResponse.text) {
+      content += fragment
+    }
+    
+    return {
+      choices: [{
+        message: {
+          content: content.trim()
+        }
+      }]
+    }
+  }
+  catch (err) {
+    if (err instanceof vscode.LanguageModelError) {
+      vscode.window.showErrorMessage(`Copilot error: ${err.message}`)
+    } else {
+      vscode.window.showErrorMessage(`Error: ${(err as Error).message}`)
+    }
+    return null
+  }
+}
+
 async function getChatCompletion(gitInfo: string, isMinimal = false) {
+  // Check if should use Copilot first
+  if (shouldUseCopilot()) {
+    return getCopilotCompletion(gitInfo, isMinimal)
+  }
+  
+  // If not using Copilot, use OpenAI
   const openaiKey = await getOpenAIKey()
   if (!openaiKey)
     return null
@@ -265,6 +357,11 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(vscode.commands.registerCommand('gitCommitStagedMinimal', () => handleStagedFilesMinimal('commit')))
   context.subscriptions.push(vscode.commands.registerCommand('gitPushStagedMinimal', () => handleStagedFilesMinimal('push')))
+  
+  // Add a new command to select Copilot model
+  context.subscriptions.push(vscode.commands.registerCommand('selectCopilotModel', async () => {
+    await selectCopilotModel()
+  }))
 }
 
 export function deactivate() { }

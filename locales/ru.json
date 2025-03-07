@@ -8,5 +8,7 @@
   "commit-successful": "Коммит успешно выполнен!",
   "processing-git-push": "Обработка Git push",
   "push-successful": "Push успешно выполнен!",
-  "select-files-to-stage": "Выберите файлы для подготовки"
+  "select-files-to-stage": "Выберите файлы для подготовки",
+  "no-copilot-models-available": "Нет доступных моделей Copilot.",
+  "select-copilot-model": "Выберите модель Copilot"
 }

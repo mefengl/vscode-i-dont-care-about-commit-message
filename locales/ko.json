@@ -8,5 +8,7 @@
   "commit-successful": "커밋 성공!",
   "processing-git-push": "Git 푸시 처리 중",
   "push-successful": "푸시 성공!",
-  "select-files-to-stage": "준비할 파일 선택"
+  "select-files-to-stage": "준비할 파일 선택",
+  "no-copilot-models-available": "사용 가능한 Copilot 모델이 없습니다.",
+  "select-copilot-model": "Copilot 모델 선택"
 }

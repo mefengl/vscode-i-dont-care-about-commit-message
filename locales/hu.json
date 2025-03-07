@@ -8,5 +8,7 @@
   "commit-successful": "Commit sikeres!",
   "processing-git-push": "Git push feldolgozása",
   "push-successful": "Push sikeres!",
-  "select-files-to-stage": "Válassza ki a rendezendő fájlokat"
+  "select-files-to-stage": "Válassza ki a rendezendő fájlokat",
+  "no-copilot-models-available": "Nincs elérhető Copilot modell.",
+  "select-copilot-model": "Válasszon Copilot modellt"
 }

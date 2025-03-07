@@ -76,6 +76,10 @@
       {
         "command": "gitPushStagedMinimal",
         "title": "AI Git Push Staged (Minimal)"
+      },
+      {
+        "command": "selectCopilotModel",
+        "title": "AI Git Commit: Select Copilot Model"
       }
     ],
     "configuration": {
@@ -99,6 +103,16 @@
           "type": "boolean",
           "default": false,
           "description": "Whether to use conventional commit"
+        },
+        "iDontCareAboutCommitMessage.useCopilot": {
+          "type": "boolean",
+          "default": false,
+          "description": "Use GitHub Copilot instead of OpenAI API (requires Copilot subscription)"
+        },
+        "iDontCareAboutCommitMessage.selectedCopilotModel": {
+          "type": "string",
+          "default": "",
+          "description": "ID of the selected Copilot model"
         }
       }
     }

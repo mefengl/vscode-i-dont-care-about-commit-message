@@ -8,5 +8,7 @@
   "commit-successful": "Commit úspěšný!",
   "processing-git-push": "Zpracování Git push",
   "push-successful": "Push úspěšný!",
-  "select-files-to-stage": "Vyberte soubory k fázi"
+  "select-files-to-stage": "Vyberte soubory k fázi",
+  "no-copilot-models-available": "Žádné modely Copilot nejsou k dispozici.",
+  "select-copilot-model": "Vyberte model Copilot"
 }
