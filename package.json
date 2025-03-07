@@ -135,7 +135,7 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vscode/test-electron": "^2.3.2",
-    "@vscode/vsce": "^3.2.1",
+    "@vscode/vsce": "^3.2.2",
     "bumpp": "^9.11.1",
     "eslint": "^8.53.0",
     "glob": "^10.0.0",
