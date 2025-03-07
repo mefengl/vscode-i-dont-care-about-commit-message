@@ -6,7 +6,7 @@
       "devDependencies": {
         "@antfu/eslint-config": "^1.1.0",
         "@types/glob": "^8.1.0",
-        "@types/vscode": "^1.79.0",
+        "@types/vscode": "^1.92.0",
         "@typescript-eslint/eslint-plugin": "^6.0.0",
         "@typescript-eslint/parser": "^6.0.0",
         "@vscode/test-electron": "^2.3.2",
