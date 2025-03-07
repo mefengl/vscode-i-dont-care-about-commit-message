@@ -68,10 +68,8 @@ async function getCopilotCompletion(gitInfo: string, isMinimal = false): Promise
   }
   
   const messages = [
-    vscode.LanguageModelChatMessage.System(isMinimal
-      ? 'write core change in one or two short words. use one word if clear enough. all lowercase. no punctuation.'
-      : 'only answer with single line of concise commit msg itself'),
-    vscode.LanguageModelChatMessage.User(gitInfo)
+    vscode.LanguageModelChatMessage.User(isMinimal ? 'write core change in one or two short words. use one word if clear enough. all lowercase. no punctuation.' : 'only answer with single line of concise commit msg itself'),
+    vscode.LanguageModelChatMessage.User(gitInfo),
   ]
   
   try {
