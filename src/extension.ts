@@ -10,7 +10,7 @@ const gitHelper = simpleGit(workspaceRoot)
 async function getOpenAIKey(): Promise<string> {
   let openaiKey = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('openaiApiKey') as string | undefined
   if (!openaiKey) {
-    openaiKey = await vscode.window.showInputBox({ prompt: i18n.t('enter-your-openai-api-key') , password: true})
+    openaiKey = await vscode.window.showInputBox({ prompt: i18n.t('enter-your-openai-api-key'), password: true })
     if (!openaiKey) {
       vscode.window.showErrorMessage(i18n.t('no-openai-api-key-provided'))
       return ''
@@ -33,13 +33,14 @@ async function selectCopilotModel(): Promise<vscode.LanguageModelChatModel | nul
     return null
   }
   const selectedModelId = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('selectedCopilotModel') as string | undefined
-  
+
   // If a model is already selected, return it
   if (selectedModelId) {
     const model = models.find(m => m.id === selectedModelId)
-    if (model) return model
+    if (model)
+      return model
   }
-  
+
   // Otherwise ask user to select one
   const modelItems = models.map(m => ({ label: m.name, detail: m.id, model: m }))
   const selectedItem = await vscode.window.showQuickPick(modelItems, { placeHolder: i18n.t('select-copilot-model') })
@@ -54,62 +55,58 @@ async function selectCopilotModel(): Promise<vscode.LanguageModelChatModel | nul
 async function getCopilotCompletion(gitInfo: string, isMinimal = false): Promise<any> {
   let model = null
   const selectedModelId = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('selectedCopilotModel') as string | undefined
-  
+
   if (selectedModelId) {
     const models = await vscode.lm.selectChatModels({ vendor: 'copilot' })
     model = models.find(m => m.id === selectedModelId)
   }
-  
+
   if (!model) {
     model = await selectCopilotModel()
-    if (!model) {
+    if (!model)
       return null
-    }
   }
-  
+
   const messages = [
     vscode.LanguageModelChatMessage.User(isMinimal ? 'write core change in one or two short words. use one word if clear enough. all lowercase. no punctuation.' : 'only answer with single line of concise commit msg itself'),
     vscode.LanguageModelChatMessage.User(gitInfo),
   ]
-  
+
   try {
     const token = new vscode.CancellationTokenSource().token
     const chatResponse = await model.sendRequest(messages, {}, token)
-    
-    if (!chatResponse) {
+
+    if (!chatResponse)
       return null
-    }
-    
+
     // Create a response similar to what OpenAI would return for consistent processing
-    let content = ""
-    for await (const fragment of chatResponse.text) {
+    let content = ''
+    for await (const fragment of chatResponse.text)
       content += fragment
-    }
-    
+
     return {
       choices: [{
         message: {
-          content: content.trim()
-        }
-      }]
+          content: content.trim(),
+        },
+      }],
     }
   }
   catch (err) {
-    if (err instanceof vscode.LanguageModelError) {
+    if (err instanceof vscode.LanguageModelError)
       vscode.window.showErrorMessage(`Copilot error: ${err.message}`)
-    } else {
+    else
       vscode.window.showErrorMessage(`Error: ${(err as Error).message}`)
-    }
+
     return null
   }
 }
 
 async function getChatCompletion(gitInfo: string, isMinimal = false) {
   // Check if should use Copilot first
-  if (shouldUseCopilot()) {
+  if (shouldUseCopilot())
     return getCopilotCompletion(gitInfo, isMinimal)
-  }
-  
+
   // If not using Copilot, use OpenAI
   const openaiKey = await getOpenAIKey()
   if (!openaiKey)
@@ -355,7 +352,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(vscode.commands.registerCommand('gitCommitStagedMinimal', () => handleStagedFilesMinimal('commit')))
   context.subscriptions.push(vscode.commands.registerCommand('gitPushStagedMinimal', () => handleStagedFilesMinimal('push')))
-  
+
   // Add a new command to select Copilot model
   context.subscriptions.push(vscode.commands.registerCommand('selectCopilotModel', async () => {
     await selectCopilotModel()
