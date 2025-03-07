@@ -13,3 +13,5 @@ vsc-extension-quickstart.md
 **/*.ts
 
 renovate.json
+
+bun.lock
