@@ -24,7 +24,7 @@ export function createConventionalCommit({
   isBreakingChange,
 }: CreateConventionalCommitOptions) {
   let commitMessage = `${type}${scope ? `(${scope})` : ''}${isBreakingChange ? '!' : ''
-    }: ${description}`
+  }: ${description}`
 
   if (body)
     commitMessage += `\n\n${body}`

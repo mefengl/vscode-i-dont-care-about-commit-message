@@ -1,6 +1,6 @@
-import * as vscode from 'vscode'
-import { simpleGit } from 'simple-git'
 import OpenAI from 'openai'
+import { simpleGit } from 'simple-git'
+import * as vscode from 'vscode'
 import { i18n } from './i18n'
 import { checkLockfiles, getChangedLinesNumber, getGitInfo, processChatCompletion } from './pure'
 
@@ -30,7 +30,8 @@ async function selectCopilotModel(): Promise<vscode.LanguageModelChat | null> {
   let models = []
   for (let i = 0; i < 10; i++) {
     models = await vscode.lm.selectChatModels({ vendor: 'copilot' })
-    if (models.length) break
+    if (models.length)
+      break
     await new Promise(r => setTimeout(r, 1000))
   }
   if (!models.length) {
@@ -78,7 +79,8 @@ async function getCopilotCompletion(gitInfo: string, isMinimal = false): Promise
     let models = []
     for (let i = 0; i < 10; i++) {
       models = await vscode.lm.selectChatModels({ vendor: 'copilot' })
-      if (models.length) break
+      if (models.length)
+        break
       await new Promise(r => setTimeout(r, 1000))
     }
     model = models.find(m => m.id === selectedModelId)

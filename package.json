@@ -129,7 +129,7 @@
     "release": "bumpp -y && nr publish"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^1.1.0",
+    "@antfu/eslint-config": "^4.16.2",
     "@types/glob": "^8.1.0",
     "@types/vscode": "^1.92.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
