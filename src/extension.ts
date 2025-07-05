@@ -27,7 +27,12 @@ function shouldUseCopilot(): boolean {
 
 // Function to select Copilot model
 async function selectCopilotModel(): Promise<vscode.LanguageModelChat | null> {
-  const models = await vscode.lm.selectChatModels({ vendor: 'copilot' })
+  let models = []
+  for (let i = 0; i < 10; i++) {
+    models = await vscode.lm.selectChatModels({ vendor: 'copilot' })
+    if (models.length) break
+    await new Promise(r => setTimeout(r, 1000))
+  }
   if (!models.length) {
     vscode.window.showErrorMessage(i18n.t('no-copilot-models-available'))
     return null
@@ -70,7 +75,12 @@ async function getCopilotCompletion(gitInfo: string, isMinimal = false): Promise
   const selectedModelId = vscode.workspace.getConfiguration('iDontCareAboutCommitMessage').get('selectedCopilotModel') as string | undefined
 
   if (selectedModelId) {
-    const models = await vscode.lm.selectChatModels({ vendor: 'copilot' })
+    let models = []
+    for (let i = 0; i < 10; i++) {
+      models = await vscode.lm.selectChatModels({ vendor: 'copilot' })
+      if (models.length) break
+      await new Promise(r => setTimeout(r, 1000))
+    }
     model = models.find(m => m.id === selectedModelId)
   }
 
